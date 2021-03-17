@@ -1,0 +1,115 @@
+﻿@using Data.Models
+@model List<UserClaim>
+
+@{
+    ViewData["Title"] = "SentDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br />
+<br />
+<div>
+    <h4>Detail Page</h4>
+    <a asp-action="Index" asp-controller="Export" style="text-align:right">
+        <div class="sb-nav-link-icon"><i class="fas fa-file-export fa-2x"></i></div>
+        <p style="text-align:right">Export</p>
+    </a>
+</div>
+
+<div class="content-header">
+
+    <form method="post" action="/Login/Export" enctype="multipart/form-data">
+        <table class="table table-hover" id="pdfpositive">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Description</th>
+                    <th>Admin Description</th>
+                    <th>Request Date</th>
+                    <th>Verification Date</th>
+                    <th>Status</th>
+                    <th>Admin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.IsActive == true && item.Status == "Positive")
+                    {
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.UserDescription</td>
+                                <td>@item.AdminDescription</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.VerificationDate</td>
+                                <td class="text-success">Positive</td>
+                                <td>@item.AdminDetail</td>
+                            </tr>
+                        }
+                    }
+                }
+                </tbody>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.IsActive == true && item.Status == "Negative")
+                    {
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.UserDescription</td>
+                                <td>@item.AdminDescription</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.VerificationDate</td>
+                                <td class="text-danger">Negative</td>
+                                <td>@item.AdminDetail</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+            </table>
+
+            @*<table class="table table-hover">
+                <thead >
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th >User Description</th>
+                        <th>Admin Description</th>
+                        <th>Request Date</th>
+                        <th>Verification Date</th>
+                        <th>Status</th>
+                        <th>Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.IsActive == true && item.Status == "Negative")
+                        {
+                            {
+                                <tr>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.UserDescription</td>
+                                    <td>@item.AdminDescription</td>
+                                    <td>@item.RequestDate</td>
+                                    <td>@item.VerificationDate</td>
+                                    <td class="text-danger">Negative</td>
+                                    <td>@item.AdminDetail</td>
+                                </tr>
+                            }
+                        }
+                    }
+                    </tbody>
+                </table>*@
+            </form>
+        </div>
+        <div>
+            <a asp-action="Index">| Back to Home</a>
+        </div>

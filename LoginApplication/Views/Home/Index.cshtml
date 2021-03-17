@@ -1,0 +1,82 @@
+﻿@model LoginApplication.Models.LoginModel
+<!-- section -->
+<section class="register">
+    <div class="header">
+        <div class="logo">
+            <a href="#">Login Application</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="register-full">
+        <div class="register-left"> </div>
+
+        <div class="register-right">
+            <div class="register-in">
+                <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">register here »</a>
+            </div>
+            <div class="register-in middle">
+                <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog1">login admin »</a>
+            </div>
+            <div class="register-in">
+                <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog2">login user »</a>
+            </div>
+            <div class="clear"> </div>
+        </div>
+        <div class="clear"> </div>
+    </div>
+    <!-- copyright -->
+    <p class="agile-copyright">© 2018 Project. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">W3layouts</a></p>
+    <!-- //copyright -->
+</section>
+<!-- //section -->
+<!-- //login form admins popup-->
+<div class="pop-up">
+    <div id="small-dialog1" class="mfp-hide book-form">
+
+        <div class="login-form login-form-left">
+            <div class="agile-row">
+                <h3>Login Admin</h3>
+                <span class="fa fa-lock"></span>
+                <div class="clear"></div>
+                <div class="login-agileits-top">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form asp-action="LoginAdmin" asp-controller="Login" method="post">
+                        <input type="text" class="email" name="Email" Placeholder="Email" required />
+                        <input type="password" class="password" name="Password" Placeholder="Password" required="" />
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- login form admins popup-->
+<!-- login form users popup-->
+<div class="pop-up">
+    <div id="small-dialog2" class="mfp-hide book-form">
+        <div class="login-form login-form-left">
+            <div class="agile-row">
+                <h3>Login User</h3>
+                <span class="fa fa-lock"></span>
+                <div class="clear"></div>
+                <div class="login-agileits-top">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form asp-action="LoginUser" asp-controller="Login" method="post">
+                        <input type="text" class="email" name="Email" Placeholder="Email" required="" />
+                        <input type="password" class="password" name="Password" Placeholder="Password" required="" />
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- //login form users popup-->
+<!-- register form user popup-->
+
+<partial name="~/Views/Shared/_PRegister.cshtml" />
+
+<!-- //register form user popup-->

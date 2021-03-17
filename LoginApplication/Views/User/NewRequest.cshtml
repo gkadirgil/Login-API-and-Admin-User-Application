@@ -1,0 +1,56 @@
+﻿@model Data.Models.UserClaim
+
+@{
+    ViewData["Title"] = "NewRequest";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+<br />
+<h4>Create Request</h4>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="NewRequest" enctype="multipart/form-data" asp-controller="User" method="post">
+            <div class="form-group">
+
+                <label class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" required>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" required />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                <input asp-for="UserDescription" class="form-control" />
+                <span asp-validation-for="UserDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="file" name="file" required/>
+            </div>
+
+            <div class="form-group">
+                <br /><br />
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div >
+            <p style="font-weight: bold; text-align:center ">Date Time</p>
+        </div>
+
+        <div style="text-align:center">
+            <p>@Html.TextBox("DateCreated", DateTime.Now, new { @readonly = "readonly", @style = "border: none;" })</p>
+
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">| Back to Home</a>
+</div>

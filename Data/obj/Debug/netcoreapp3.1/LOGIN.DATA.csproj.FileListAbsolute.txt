@@ -1,0 +1,12 @@
+C:\Users\gkadi\source\repos\LoginApplication\Data\bin\Debug\netcoreapp3.1\LOGIN.DATA.deps.json
+C:\Users\gkadi\source\repos\LoginApplication\Data\bin\Debug\netcoreapp3.1\LOGIN.DATA.runtimeconfig.json
+C:\Users\gkadi\source\repos\LoginApplication\Data\bin\Debug\netcoreapp3.1\LOGIN.DATA.runtimeconfig.dev.json
+C:\Users\gkadi\source\repos\LoginApplication\Data\bin\Debug\netcoreapp3.1\LOGIN.DATA.dll
+C:\Users\gkadi\source\repos\LoginApplication\Data\bin\Debug\netcoreapp3.1\LOGIN.DATA.pdb
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.csprojAssemblyReference.cache
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.AssemblyInfoInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.AssemblyInfo.cs
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.csproj.CoreCompileInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.dll
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.pdb
+C:\Users\gkadi\source\repos\LoginApplication\Data\obj\Debug\netcoreapp3.1\LOGIN.DATA.genruntimeconfig.cache

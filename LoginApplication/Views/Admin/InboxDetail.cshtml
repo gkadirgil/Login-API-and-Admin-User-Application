@@ -1,0 +1,85 @@
+﻿@model Data.Models.UserClaim
+
+@{
+    ViewData["Title"] = "InboxDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+<h4>Inbox Detail Page</h4>
+<br />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Sent">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            @Html.HiddenFor(x => x.ClaimId)
+            <div class="form-group">
+                <label class="control-label" style="font-weight:bold">First Name</label>
+                <label asp-for="FirstName" class="control-label" style="font-weight:bold">:</label>
+                <label asp-for="FirstName" class="control-label">@Model.FirstName</label>
+                @Html.HiddenFor(x => x.FirstName)
+            </div>
+            <div class="form-group">
+                <label class="control-label" style="font-weight:bold">Last Name</label>
+                <label asp-for="LastName" class="control-label" style="font-weight:bold">:</label>
+                <label asp-for="LastName" class="control-label">@Model.LastName</label>
+                @Html.HiddenFor(x => x.LastName)
+            </div>
+            <div class="form-group">
+                <label class="control-label" style="font-weight:bold">User Description</label>
+                <label asp-for="UserDescription" class="control-label" style="font-weight:bold">:</label>
+                <label asp-for="UserDescription" class="control-label">@Model.UserDescription</label>
+                @Html.HiddenFor(x => x.UserDescription)
+            </div>
+            <div class="form-group">
+                <label class="control-label" style="font-weight:bold">Document</label>
+                <label asp-for="UserDocument" class="control-label" style="font-weight:bold">:</label>
+                @Html.ActionLink("Click for User Document", "DownloadFile", "File", new { fileName = Model.DocumentPath })
+                <span asp-validation-for="UserDocument" class="text-danger"></span>
+                @Html.HiddenFor(x => x.UserDocument)
+                @Html.HiddenFor(x => x.DocumentPath)
+            </div>
+            @Html.HiddenFor(x => x.UserId)
+            <div class="form-group">
+                <label class="control-label" style="font-weight:bold">Request Date</label>
+                <label asp-for="RequestDate" class="control-label" style="font-weight:bold">:</label>
+                <label asp-for="RequestDate" class="control-label">@Model.RequestDate</label>
+                @Html.HiddenFor(x => x.RequestDate)
+            </div>
+            <div class="form-group">
+                <input asp-for="Status" type="radio" id="Positive" value="Positive">
+                <label class="control-label text-success" for="Positive">Positive</label>
+
+                <input asp-for="Status" type="radio" id="Negative" value="Negative">
+                <label class="control-label text-danger" for="Negative">Negative</label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminDescription" class="control-label" style="font-weight:bold">Admin Description</label>
+                <input asp-for="AdminDescription" class="form-control" style="width:50%" />
+                <span asp-validation-for="AdminDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sent" class="btn btn-outline-success btn-md" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div style="font-weight: bold; text-align:center ">
+            <p>Date Time</p>
+        </div>
+
+        <div style="text-align:center">
+            <p>@Html.TextBox("DateCreated", DateTime.Now, new { @readonly = "readonly", @style = "border: none;" })</p>
+
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Inbox">| Back to Inbox</a>
+</div>
+
+
+

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .test {
+            width: 100%;
+            display: inline;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 28px 56px;
+            box-shadow: 5px 10px 8px #888888;
+            
+        }
+        .cover {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 20px
+        }
+        .lead {
+            color: silver;
+            font-size: 21px;
+            line-height: 1.4
+        }
+
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <div class="lead">
+        <h2 style="text-align:center">Export to PDF Page</h2>
+    </div>
+   
+    <div style="text-align:center">
+        <p>Click to Status</p>
+    </div>
+    <div class="lead" style="margin:auto">
+        <br /><br />
+        <a class="btn btn-outline-secondary test" style="margin-left:220px" href="/Export/UserClaimAll" target="_blank">All Status</a>
+        <a class="btn btn-outline-success test"  style="margin-left:75px;" href="/Export/UserClaimPos" target="_blank">Positive</a>
+        <a class="btn btn-outline-danger test" style="margin-left:100px;"  href="/Export/UserClaimNeg" target="_blank">Negative</a>
+    </div>
+    
+</body>
+</html>
+
+
+
+

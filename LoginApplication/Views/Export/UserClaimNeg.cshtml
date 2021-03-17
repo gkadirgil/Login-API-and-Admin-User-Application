@@ -1,0 +1,62 @@
+﻿@using Data.Models
+@model List<UserClaim>
+@{
+    ViewData["Title"] = "UserClaimNeg";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+<div>
+    <h4>User Request Replied Detail Page - Status: Negative</h4>
+
+    <a asp-action="ExportPDFAll" style="text-align:right">
+        <div class="sb-nav-link-icon"><i class="far fa-file-pdf fa-2x"></i></div>
+        <p style="text-align:right">Export PDF</p>
+    </a>
+</div>
+<br />
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="content-header">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>User Description</th>
+                        <th>Admin Description</th>
+                        <th>Request Date</th>
+                        <th>Verification Date</th>
+                        <th>Status</th>
+                        <th>Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.UserDescription</td>
+                            <td>@item.AdminDescription</td>
+                            <td>@item.RequestDate</td>
+                            <td>@item.VerificationDate</td>
+                            <td class="text-danger">@item.Status</td>
+                            <td>@item.AdminDetail</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<span style="font-weight:bold;">Printing Date Time : </span>
+<span>@Html.TextBox("DateCreated", DateTime.Now, new { @readonly = "readonly", @style = "border: none;" })</span>
+<br />
+<br />
+<p><span style="font-weight:bold">  Admin : </span>@ViewBag.AdminInfo</p>
+
+

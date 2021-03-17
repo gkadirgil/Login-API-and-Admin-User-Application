@@ -1,0 +1,49 @@
+﻿@model List<Data.Models.UserClaim>
+
+@{
+    ViewData["Title"] = "MyRequests";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+<br />
+<h4>MyRequests</h4>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Description</th>
+            <th>My Document</th>
+            <th>Request Date</th>
+            <th>Verification Date</th>
+            <th>Status</th>
+            <th>Case</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.UserDescription</td>
+            <td>@Html.ActionLink("Document", "DownloadFile","File", new { fileName = @item.DocumentPath })</td>
+            @*<td>@item.Document</td>*@
+            <td>@item.RequestDate</td>
+            <td>@item.VerificationDate</td>
+            <td>@item.Status</td>
+            @if (item.IsActive == true)
+            {
+                <td class="text-success">Replied</td>
+            }
+            else
+            {
+                <td class="text-danger">Unreplied</td>
+            }
+        </tr>
+    }
+</table>
+<div></div>
+<div>
+    <a asp-action="Index">| Back to Home</a>
+</div>

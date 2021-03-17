@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LOGIN.API</name>
+    </assembly>
+    <members>
+        <member name="M:LOGIN.API.Controllers.LoginController.LoginAdmin(System.String,System.String)">
+            <summary>
+            Admin Login 
+            </summary>
+            <param name="email"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LOGIN.API.Controllers.LoginController.LoginUser(System.String,System.String)">
+            <summary>
+            User Login
+            </summary>
+            <param name="email"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LOGIN.API.Controllers.LoginController.Register(Data.Models.User)">
+            <summary>
+            User Register
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
