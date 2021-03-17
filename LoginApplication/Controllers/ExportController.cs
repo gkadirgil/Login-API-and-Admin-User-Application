@@ -16,15 +16,16 @@ namespace LoginApplication.Controllers
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+
             return View();
         }
         public IActionResult UserClaimAll()
         {
-            string Key = "Admin";
-            ViewBag.AdminInfo=GetAdminWithSessinKey(Key);
+            UserServices userServices = new UserServices();
+
+            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
@@ -32,8 +33,10 @@ namespace LoginApplication.Controllers
         }
         public IActionResult UserClaimPos()
         {
-            string Key = "Admin";
-            ViewBag.AdminInfo = GetAdminWithSessinKey(Key);
+            UserServices userServices = new UserServices();
+
+            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status=="Positive").ToList();
@@ -41,8 +44,10 @@ namespace LoginApplication.Controllers
         }
         public IActionResult UserClaimNeg()
         {
-            string Key = "Admin";
-            ViewBag.AdminInfo = GetAdminWithSessinKey(Key);
+            UserServices userServices = new UserServices();
+
+            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status== "Negative").ToList();
@@ -68,16 +73,7 @@ namespace LoginApplication.Controllers
             return new Rotativa.AspNetCore.ViewAsPdf("UserClaimNeg", data);
         }
 
-        public string GetAdminWithSessinKey(string key)
-        {
-            int Admin_ID = int.Parse(HttpContext.Session.GetString(key));
-            Admin valueAdmin = new Admin();
-            UserServices userServices = new UserServices();
-            valueAdmin = userServices.GetAdminWithById(Admin_ID);
-            string AdminName = valueAdmin.FirstName + " " + valueAdmin.LastName;
-
-            return AdminName;
-        }
+        
 
     }
 }

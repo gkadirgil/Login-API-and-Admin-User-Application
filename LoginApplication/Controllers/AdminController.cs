@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LOGIN.APPLICATION.Controllers
@@ -18,9 +19,9 @@ namespace LOGIN.APPLICATION.Controllers
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            
+
             return View();
 
         }
@@ -29,12 +30,11 @@ namespace LOGIN.APPLICATION.Controllers
         {
 
             UserServices userServices = new UserServices();
-            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
 
-            var data = userServices.GetAll();
+            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+
+            var data = userServices.GetUserRequsetListFalse();
 
             return View(data);
 
@@ -44,12 +44,10 @@ namespace LOGIN.APPLICATION.Controllers
         {
             UserServices userServices = new UserServices();
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
-            var data = userServices.GetDetail(id);
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
 
-
+           
+            var data = userServices.GetUserRequestWithById(id);
             string path = Path.Combine(Directory.GetCurrentDirectory(), data.DocumentPath);
             data.UserDocument = Path.GetFileName(path);
 
@@ -70,11 +68,11 @@ namespace LOGIN.APPLICATION.Controllers
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
 
             var valueAdmin = userServices.GetAdminWithById(admin_id);
             var valueUser = userServices.GetUserWithById(data.UserId);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
+           
 
             var newData = context.UserClaims.Find(data.ClaimId);
             newData.FirstName = data.FirstName;
@@ -99,9 +97,11 @@ namespace LOGIN.APPLICATION.Controllers
             mailing.MailSubject = "You Have A Message From Admin";
 
             context.MailModels.Add(mailing);
+            context.SaveChanges();
+
             userServices.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
 
-            context.SaveChanges();
+            
 
             return RedirectToAction("Index");
         }
@@ -111,10 +111,9 @@ namespace LOGIN.APPLICATION.Controllers
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
-            ViewBag.FirstName = valueAdmin.FirstName.ToUpper();
-            ViewBag.LastName = valueAdmin.LastName.ToUpper();
-            var data = userServices.GetListWithIsActive();
+            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+
+            var data = userServices.GetUserRequsetListTrue();
 
             return View(data);
         }

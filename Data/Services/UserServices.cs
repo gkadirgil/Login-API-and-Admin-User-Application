@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace Data.Services
             {
 
                 data = context.Users.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
-                if (data != null && data.UserId > 0)
+                if (data != null && data.UserId > 0 && data.IsActive == true)
                 {
                     return data;
                 }
@@ -31,7 +32,7 @@ namespace Data.Services
             using (LOGAPDBContext context = new LOGAPDBContext())
             {
                 data = context.Admins.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
-                if (data != null && data.AdminId > 0)
+                if (data != null && data.AdminId > 0 && data.IsActive == true)
                 {
                     return data;
                 }
@@ -55,28 +56,16 @@ namespace Data.Services
 
 
         }
-        public List<UserClaim> GetListUserClaimWithById(int id)
+        public List<UserClaim> GetListUserRequestWithById(int id)
         {
             List<UserClaim> result = new List<UserClaim>();
             using (LOGAPDBContext context = new LOGAPDBContext())
             {
-
-                //result=context.UserClaims.Where(w => w.UserId == id).ToList();
                 result = context.UserClaims.Where(w => w.UserId == id).OrderByDescending(x => x.RequestDate).ToList();
             }
             return result;
         }
-        public List<UserClaim> GetAll()
-        {
-            List<UserClaim> result = new List<UserClaim>();
-            using (LOGAPDBContext context = new LOGAPDBContext())
-            {
-                result = context.UserClaims.OrderByDescending(x => x.RequestDate).Where(w => w.IsActive == false).ToList();
-            }
-
-            return result;
-        }
-        public UserClaim GetDetail(int id)
+        public UserClaim GetUserRequestWithById(int id)
         {
             UserClaim result = new UserClaim();
             using (LOGAPDBContext context = new LOGAPDBContext())
@@ -86,12 +75,21 @@ namespace Data.Services
 
             return result;
         }
-        public List<UserClaim> GetListWithIsActive()
+        public List<UserClaim> GetUserRequsetListFalse()
         {
             List<UserClaim> result = new List<UserClaim>();
             using (LOGAPDBContext context = new LOGAPDBContext())
             {
-                //result = context.UserClaims.OrderByDescending(x => x.VerificationDate).ToList();
+                result = context.UserClaims.OrderByDescending(x => x.RequestDate).Where(w => w.IsActive == false).ToList();
+            }
+
+            return result;
+        }
+        public List<UserClaim> GetUserRequsetListTrue()
+        {
+            List<UserClaim> result = new List<UserClaim>();
+            using (LOGAPDBContext context = new LOGAPDBContext())
+            {
                 result = context.UserClaims.Where(w => w.IsActive == true).ToList();
 
                 return result;
@@ -120,7 +118,7 @@ namespace Data.Services
 
             return data;
         }
-        public void SendMail(MailModel model, string email,string password)
+        public void SendMail(MailModel model, string email, string password)
         {
             //Admin admin = new Admin();
             //email = admin.Email;
@@ -130,7 +128,7 @@ namespace Data.Services
             mymail.To.Add(model.ToMail);
             mymail.From = new MailAddress(model.FromMail);
             mymail.Subject = "You Have A Message From Admin";
-            mymail.Body = "Mss/Mr" + " " + model.FullName + ";" + "<br><br>" + model.MailContent+ "<br><br><br>"+"Sincereley,"+"<br>"+model.AdminName;
+            mymail.Body = "Mss/Mr" + " " + model.FullName + ";" + "<br><br>" + model.MailContent + "<br><br><br>" + "Sincereley," + "<br>" + model.AdminName;
             mymail.IsBodyHtml = true;
 
             SmtpClient smtp = new SmtpClient();
@@ -152,7 +150,35 @@ namespace Data.Services
             smtp.Send(mymail);
 
         }
+        public string GetUserInfoNavBarWitById(int id)
+        {
+            UserServices userServices = new UserServices();
+            
+            using (LOGAPDBContext context = new LOGAPDBContext())
+            {
+                User data = new User();
+                data = context.Users.Find(id);
+                string UserInfo = data.FirstName.ToUpper() + " " + data.LastName.ToUpper();
+                return UserInfo;
 
-        
+            }
+            
+        }
+        public string GetAdminInfoNavBarWitById(int id)
+        {
+            UserServices userServices = new UserServices();
+
+            using (LOGAPDBContext context = new LOGAPDBContext())
+            {
+                Admin data = new Admin();
+                data = context.Admins.Find(id);
+                string AdminInfo = data.FirstName.ToUpper() + " " + data.LastName.ToUpper();
+                return AdminInfo;
+
+            }
+
+        }
+
+
     }
 }

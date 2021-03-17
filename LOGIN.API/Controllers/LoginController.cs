@@ -57,7 +57,8 @@ namespace LOGIN.API.Controllers
         [HttpPost]
         public Login Register([FromBody] User data)
         {
-            
+            // TO DO: KAYIT İŞLEMLERİ YAPILIRKEN ENCRYPT İŞLEMLERİ YAPILACAK...
+
             Login model = new Login();
             LOGAPDBContext context = new LOGAPDBContext();
             UserServices userServices = new UserServices();

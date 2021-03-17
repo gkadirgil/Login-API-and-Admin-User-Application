@@ -197,3 +197,4 @@ C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcorea
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\User\NewRequest.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error2.cshtml.g.cs

@@ -41,7 +41,7 @@ namespace LoginApplication.Controllers
         public async Task<IActionResult> _PRegister(User data)
         {
             Login model = new Login();
-            string degersifre = sifreleme(model.Password);
+           
 
             var dataAdmin = Get<Admin>("Login/LoginAdmin/" + model.Email + "/" + model.Password);
             var dataUser = Get<User>("Login/LoginUser/" + model.Email + "/" + model.Password);
@@ -55,28 +55,35 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-            else if (dataUser == null)
+            else if (dataUser != null)
             {
                 return RedirectToAction("Index", "Home");
 
             }
 
-            else if (dataUser.UserId > 0)
+            else if (dataUser==null)
             {
+                LOGAPDBContext context = new LOGAPDBContext();
+                data.IsActive = true;
+                data.RegisterTime = DateTime.Now;
+                context.Users.Add(data);
+                context.SaveChanges();
+
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, dataUser.Email)
+                    new Claim(ClaimTypes.Email, data.Email)
+
+
                 };
 
                 var useridentity = new ClaimsIdentity(claims, "Login");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
                 await HttpContext.SignInAsync(principal);
 
-                HttpContext.Session.SetString("User", dataUser.UserId.ToString());
-                ViewBag.FirstName = dataUser.FirstName.ToUpper();
-                ViewBag.LastName = dataUser.LastName.ToUpper();
+                HttpContext.Session.SetString("User", data.UserId.ToString());
                 return RedirectToAction("Index", "User");
             }
+            
 
             return RedirectToAction("Index", "Home");
 

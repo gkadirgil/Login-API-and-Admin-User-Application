@@ -17,10 +17,9 @@ namespace LOGIN.APPLICATION.Controllers
         {
             UserServices userServices = new UserServices();
 
-            int user_id = int.Parse(HttpContext.Session.GetString("User"));
-            var valueUser = userServices.GetUserWithById(user_id);
-            ViewBag.FirstName = valueUser.FirstName.ToUpper();
-            ViewBag.LastName = valueUser.LastName.ToUpper();
+            int UserId = int.Parse(HttpContext.Session.GetString("User"));
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+
             return View();
         }
         
@@ -28,10 +27,9 @@ namespace LOGIN.APPLICATION.Controllers
         public IActionResult NewRequest()
         {
             UserServices userServices = new UserServices();
+
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            var valueUser = userServices.GetUserWithById(UserId);
-            ViewBag.FirstName = valueUser.FirstName.ToUpper();
-            ViewBag.LastName = valueUser.LastName.ToUpper();
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
             return View();
         }
 
@@ -68,13 +66,12 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult MyRequests()
         {
-            int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            UserServices userServices = new UserServices();
-            var data = userServices.GetListUserClaimWithById(UserId);
-            var valueUser = userServices.GetUserWithById(UserId);
-            ViewBag.FirstName = valueUser.FirstName.ToUpper();
-            ViewBag.LastName = valueUser.LastName.ToUpper();
 
+            UserServices userServices = new UserServices();
+            int UserId = int.Parse(HttpContext.Session.GetString("User"));
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+
+            var data = userServices.GetListUserRequestWithById(UserId);
             foreach (var item in data)
             {
 
@@ -85,5 +82,7 @@ namespace LOGIN.APPLICATION.Controllers
             return View(data);
 
         }
+       
+        
     }
 }
