@@ -18,6 +18,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LoginApplication.Controllers
@@ -73,7 +74,6 @@ namespace LoginApplication.Controllers
                 {
                     new Claim(ClaimTypes.Email, data.Email)
 
-
                 };
 
                 var useridentity = new ClaimsIdentity(claims, "Login");
@@ -94,6 +94,7 @@ namespace LoginApplication.Controllers
         [HttpGet]
         public IActionResult LoginUser()
         {
+
             return View();
         }
 
@@ -103,6 +104,7 @@ namespace LoginApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginUser(Data.Models.Login model)
         {
+            
 
             if (!ModelState.IsValid)
             {
@@ -128,16 +130,26 @@ namespace LoginApplication.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, dataUser.Email)
+                    new Claim(ClaimTypes.Email, model.Email),
+                    //new Claim("FullName",dataUser.FirstName),
+                    new Claim(ClaimTypes.Role,"User")
                 };
 
                 var useridentity = new ClaimsIdentity(claims, "Login");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                Thread.CurrentPrincipal = principal;
                 await HttpContext.SignInAsync(principal);
 
                 HttpContext.Session.SetString("User", dataUser.UserId.ToString());
                 ViewBag.FirstName = dataUser.FirstName.ToUpper();
                 ViewBag.LastName = dataUser.LastName.ToUpper();
+
+                //var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+                // Get the claims values
+                //var name = identity.Claims.Where(c => c.Type == ClaimTypes.Email)
+                //                   .Select(c => c.Value).SingleOrDefault();
+
                 return RedirectToAction("Index", "User");
             }
 
@@ -149,7 +161,7 @@ namespace LoginApplication.Controllers
         [HttpGet]
         public IActionResult LoginAdmin()
         {
-
+            
             return View();
         }
 
@@ -158,6 +170,8 @@ namespace LoginApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginAdmin(Data.Models.Login model)
         {
+           
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Home");
@@ -165,6 +179,7 @@ namespace LoginApplication.Controllers
 
             var dataAdmin = Get<Admin>("Login/LoginAdmin/" + model.Email + "/" + model.Password);
             var dataUser = Get<User>("Login/LoginUser/" + model.Email + "/" + model.Password);
+
             if (dataUser != null)
             {
                 HttpContext.Session.SetString("User", dataUser.UserId.ToString());
@@ -182,11 +197,13 @@ namespace LoginApplication.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, dataAdmin.Email)
+                    new Claim(ClaimTypes.Email, dataAdmin.Email),
+                    new Claim(ClaimTypes.Role,"Admin")
                 };
 
                 var useridentity = new ClaimsIdentity(claims, "Login");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                Thread.CurrentPrincipal = principal;
                 await HttpContext.SignInAsync(principal);
 
                 HttpContext.Session.SetString("Admin", dataAdmin.AdminId.ToString());

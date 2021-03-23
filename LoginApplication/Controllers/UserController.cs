@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -13,8 +16,16 @@ namespace LOGIN.APPLICATION.Controllers
 {
     public class UserController : Controller
     {
+
         public IActionResult Index()
         {
+            string role = UserAuth();
+            if (role == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+
             UserServices userServices = new UserServices();
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
@@ -22,10 +33,16 @@ namespace LOGIN.APPLICATION.Controllers
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult NewRequest()
         {
+            string role = UserAuth();
+            if (role == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
             UserServices userServices = new UserServices();
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
@@ -37,13 +54,13 @@ namespace LOGIN.APPLICATION.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewRequest(IFormFile file, UserClaim data)
         {
-            
+
 
             LOGAPDBContext context = new LOGAPDBContext();
 
-          
 
-            if (file !=null)
+
+            if (file != null)
             {
                 string fileExtension = Path.GetExtension(file.FileName);
                 string fileName = Guid.NewGuid() + fileExtension;
@@ -66,6 +83,15 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult MyRequests()
         {
+            //var identity = (ClaimsIdentity)User.Identity;
+            //var role = identity.FindFirst(ClaimTypes.Role).Value;
+            ////IEnumerable<Claim> claims = identity.Claims;
+            
+            string role=UserAuth();
+            if (role == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
 
             UserServices userServices = new UserServices();
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
@@ -82,7 +108,15 @@ namespace LOGIN.APPLICATION.Controllers
             return View(data);
 
         }
-       
-        
+
+        public string UserAuth()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var role = identity.FindFirst(ClaimTypes.Role).Value;
+
+            return role;
+        }
+
+
     }
 }

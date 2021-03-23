@@ -15,6 +15,11 @@ namespace LOGIN.APPLICATION.Controllers
     {
         public IActionResult Index()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
 
             UserServices userServices = new UserServices();
 
@@ -28,6 +33,11 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult Inbox()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
 
             UserServices userServices = new UserServices();
 
@@ -42,6 +52,13 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult InboxDetail(int id)
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
+
             UserServices userServices = new UserServices();
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
             ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
@@ -57,6 +74,7 @@ namespace LOGIN.APPLICATION.Controllers
         [HttpGet]
         public IActionResult Sent()
         {
+            
             return View();
         }
 
@@ -108,6 +126,12 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult SentDetail()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
@@ -116,6 +140,14 @@ namespace LOGIN.APPLICATION.Controllers
             var data = userServices.GetUserRequsetListTrue();
 
             return View(data);
+        }
+
+        public string AdminAuth()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var role = identity.FindFirst(ClaimTypes.Role).Value;
+
+            return role;
         }
     }
 }

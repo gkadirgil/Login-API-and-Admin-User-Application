@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LoginApplication.Controllers
@@ -13,6 +14,12 @@ namespace LoginApplication.Controllers
     {
         public IActionResult Index()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
@@ -22,6 +29,12 @@ namespace LoginApplication.Controllers
         }
         public IActionResult UserClaimAll()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
@@ -33,6 +46,12 @@ namespace LoginApplication.Controllers
         }
         public IActionResult UserClaimPos()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
@@ -44,6 +63,12 @@ namespace LoginApplication.Controllers
         }
         public IActionResult UserClaimNeg()
         {
+            string role = AdminAuth();
+            if (role == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             UserServices userServices = new UserServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
@@ -72,8 +97,15 @@ namespace LoginApplication.Controllers
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
             return new Rotativa.AspNetCore.ViewAsPdf("UserClaimNeg", data);
         }
+        public string AdminAuth()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var role = identity.FindFirst(ClaimTypes.Role).Value;
 
-        
+            return role;
+        }
+
+
 
     }
 }
