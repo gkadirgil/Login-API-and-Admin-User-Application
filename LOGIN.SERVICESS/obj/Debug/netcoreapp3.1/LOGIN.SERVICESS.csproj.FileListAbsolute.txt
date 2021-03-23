@@ -1,0 +1,9 @@
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\bin\Debug\netcoreapp3.1\LOGIN.SERVICESS.deps.json
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\bin\Debug\netcoreapp3.1\LOGIN.SERVICESS.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\bin\Debug\netcoreapp3.1\LOGIN.SERVICESS.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.csprojAssemblyReference.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.AssemblyInfoInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.AssemblyInfo.cs
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.csproj.CoreCompileInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICESS\obj\Debug\netcoreapp3.1\LOGIN.SERVICESS.pdb

@@ -20,10 +20,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             return View();
         }
@@ -35,10 +35,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
@@ -52,10 +52,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status=="Positive").ToList();
@@ -69,10 +69,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status== "Negative").ToList();

@@ -2431,6 +2431,19 @@
         "runtime": {
           "bin/placeholder/LOGIN.DATA.dll": {}
         }
+      },
+      "LOGIN.SERVICES/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "LOGIN.DATA": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/LOGIN.SERVICES.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LOGIN.SERVICES.dll": {}
+        }
       }
     }
   },
@@ -7883,11 +7896,17 @@
       "type": "project",
       "path": "../Data/LOGIN.DATA.csproj",
       "msbuildProject": "../Data/LOGIN.DATA.csproj"
+    },
+    "LOGIN.SERVICES/1.0.0": {
+      "type": "project",
+      "path": "../LOGIN.SERVICES/LOGIN.SERVICES.csproj",
+      "msbuildProject": "../LOGIN.SERVICES/LOGIN.SERVICES.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "LOGIN.DATA >= 1.0.0",
+      "LOGIN.SERVICES >= 1.0.0",
       "NSwag.AspNetCore >= 13.10.8"
     ]
   },
@@ -7925,6 +7944,9 @@
           "projectReferences": {
             "C:\\Users\\gkadi\\source\\repos\\LoginApplication\\Data\\LOGIN.DATA.csproj": {
               "projectPath": "C:\\Users\\gkadi\\source\\repos\\LoginApplication\\Data\\LOGIN.DATA.csproj"
+            },
+            "C:\\Users\\gkadi\\source\\repos\\LoginApplication\\LOGIN.SERVICES\\LOGIN.SERVICES.csproj": {
+              "projectPath": "C:\\Users\\gkadi\\source\\repos\\LoginApplication\\LOGIN.SERVICES\\LOGIN.SERVICES.csproj"
             }
           }
         }

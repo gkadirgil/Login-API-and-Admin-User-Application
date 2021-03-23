@@ -21,11 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\LOGIN.DATA.csproj" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\files\" />
+    <ProjectReference Include="..\Data\LOGIN.DATA.csproj" />
+    <ProjectReference Include="..\LOGIN.SERVICES\LOGIN.SERVICES.csproj" />
   </ItemGroup>
 
 </Project>

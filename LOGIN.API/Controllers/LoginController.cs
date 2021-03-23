@@ -25,10 +25,12 @@ namespace LOGIN.API.Controllers
         [HttpGet("LoginAdmin/{email}/{password}")]
         public ActionResult<Admin> LoginAdmin(string email, string password)
         {
-            UserServices userServices = new UserServices();
+            //UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new SERVICES.AdminServices();
+
             Admin data = new Admin();
             Login model = new Login() { Email = email, Password = password };
-            data = userServices.AdminLogin(model);
+            data = adminServices.AdminLogin(model);
             return data;
         }
 
@@ -41,9 +43,13 @@ namespace LOGIN.API.Controllers
         [HttpGet("LoginUser/{email}/{password}")]
         public ActionResult<User> LoginUser(string email, string password)
         {
-            UserServices userServices = new UserServices();
+
+            //UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+
             User data = new User();
             Login model = new Login() { Email = email, Password = password };
+            
             data = userServices.UserLogin(model);
 
             return data;
@@ -61,7 +67,8 @@ namespace LOGIN.API.Controllers
 
             
             LOGAPDBContext context = new LOGAPDBContext();
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+            //UserServices userServices = new UserServices();
            
             if (userServices.CheckEmail(data.Email))
             {
@@ -76,8 +83,6 @@ namespace LOGIN.API.Controllers
             else
                 return null;
         }
-
-  
 
     }
 }

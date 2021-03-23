@@ -182,7 +182,6 @@ C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcorea
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\Rotativa.AspNetCore.dll
-C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\LoginApplication.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Export\Index.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Export\UserClaimAll.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Export\UserClaimPos.cshtml.g.cs
@@ -198,3 +197,5 @@ C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcorea
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error2.cshtml.g.cs
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb

@@ -25,7 +25,7 @@ namespace Data.Services
                 }
             }
             return data;
-        }
+        } // Added//
         public Admin AdminLogin(Login model)
         {
 
@@ -39,7 +39,7 @@ namespace Data.Services
                 }
             }
             return data;
-        }
+        }//
         public bool CheckEmail(string email)
         {
             using (LOGAPDBContext context = new LOGAPDBContext())
@@ -56,7 +56,7 @@ namespace Data.Services
             }
 
 
-        }
+        } //Added//
         public List<UserClaim> GetListUserRequestWithById(int id)
         {
             List<UserClaim> result = new List<UserClaim>();
@@ -65,7 +65,7 @@ namespace Data.Services
                 result = context.UserClaims.Where(w => w.UserId == id).OrderByDescending(x => x.RequestDate).ToList();
             }
             return result;
-        }
+        } //Added//
         public UserClaim GetUserRequestWithById(int id)
         {
             UserClaim result = new UserClaim();
@@ -75,7 +75,7 @@ namespace Data.Services
             }
 
             return result;
-        }
+        } //Added//
         public List<UserClaim> GetUserRequsetListFalse()
         {
             List<UserClaim> result = new List<UserClaim>();
@@ -85,7 +85,7 @@ namespace Data.Services
             }
 
             return result;
-        }
+        } //Added//
         public List<UserClaim> GetUserRequsetListTrue()
         {
             List<UserClaim> result = new List<UserClaim>();
@@ -98,7 +98,7 @@ namespace Data.Services
             }
 
 
-        }
+        } //Added//
         public Admin GetAdminWithById(int id)
         {
             Admin data = new Admin();
@@ -108,7 +108,7 @@ namespace Data.Services
             }
 
             return data;
-        }
+        }//
         public User GetUserWithById(int id)
         {
             User data = new User();
@@ -118,13 +118,10 @@ namespace Data.Services
             }
 
             return data;
-        }
+        } //Added//
         public void SendMail(MailModel model, string email, string password)
         {
-            //Admin admin = new Admin();
-            //email = admin.Email;
-            //password = admin.Password;
-
+           
             MailMessage mymail = new MailMessage();
             mymail.To.Add(model.ToMail);
             mymail.From = new MailAddress(model.FromMail);
@@ -137,16 +134,6 @@ namespace Data.Services
             smtp.Port = 587; // Port Numaber
             smtp.Host = "smtp.gmail.com";
             smtp.EnableSsl = true;
-
-            //SmtpClient smtp = new SmtpClient();
-            //smtp.Host = "smtp.gmail.com";
-            //smtp.Port = 587;
-            //smtp.UseDefaultCredentials = false;
-            //smtp.EnableSsl = true;
-            //smtp.UseDefaultCredentials = false;
-            //NetworkCredential nc = new NetworkCredential(email, password);
-            //smtp.Credentials = nc;
-
 
             smtp.Send(mymail);
 
@@ -163,11 +150,11 @@ namespace Data.Services
                 return UserInfo;
 
             }
-            
-        }
+
+        } //Added//
         public string GetAdminInfoNavBarWitById(int id)
         {
-            UserServices userServices = new UserServices();
+            //UserServices userServices = new UserServices();
 
             using (LOGAPDBContext context = new LOGAPDBContext())
             {
@@ -178,7 +165,7 @@ namespace Data.Services
 
             }
 
-        }
+        }//
 
 
 

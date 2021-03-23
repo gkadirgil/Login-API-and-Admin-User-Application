@@ -44,12 +44,14 @@ namespace LoginApplication.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            UserServices userServices = new UserServices();
+           
+            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             if (HttpContext.Session.GetString("Admin") != null)
             {
                 int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-                var valueAdmin = userServices.GetAdminWithById(admin_id);
+                var valueAdmin = adminServices.GetAdminWithById(admin_id);
                 ViewBag.AdminFirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(valueAdmin.FirstName);
                 ViewBag.AdminLastName = valueAdmin.LastName.ToUpper();
                 ViewBag.AdminID = admin_id;

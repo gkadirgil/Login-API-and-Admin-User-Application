@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\LOGIN.DATA.csproj" />
+    <ProjectReference Include="..\LOGIN.SERVICES\LOGIN.SERVICES.csproj" />
   </ItemGroup>
 
 

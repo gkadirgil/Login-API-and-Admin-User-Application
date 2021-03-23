@@ -21,10 +21,10 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.AdminServices adminServices = new SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
             
 
             return View();
@@ -39,10 +39,12 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            //UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             var data = userServices.GetUserRequsetListFalse();
 
@@ -59,9 +61,12 @@ namespace LOGIN.APPLICATION.Controllers
             }
 
 
-            UserServices userServices = new UserServices();
+            //UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
+
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
            
             var data = userServices.GetUserRequestWithById(id);
@@ -83,12 +88,15 @@ namespace LOGIN.APPLICATION.Controllers
         {
 
             LOGAPDBContext context = new LOGAPDBContext();
-            UserServices userServices = new UserServices();
+            
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
+            LOGIN.SERVICES.MailServices mailServices = new LOGIN.SERVICES.MailServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
-            var valueAdmin = userServices.GetAdminWithById(admin_id);
+            var valueAdmin = adminServices.GetAdminWithById(admin_id);
             var valueUser = userServices.GetUserWithById(data.UserId);
            
 
@@ -117,7 +125,7 @@ namespace LOGIN.APPLICATION.Controllers
             context.MailModels.Add(mailing);
             context.SaveChanges();
 
-            userServices.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
+            mailServices.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
 
             
 
@@ -132,10 +140,12 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            UserServices userServices = new UserServices();
+            
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = userServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             var data = userServices.GetUserRequsetListTrue();
 

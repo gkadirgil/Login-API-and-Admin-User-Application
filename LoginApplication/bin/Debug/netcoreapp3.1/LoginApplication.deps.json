@@ -32,6 +32,7 @@
       "LoginApplication/1.0.0": {
         "dependencies": {
           "LOGIN.DATA": "1.0.0",
+          "LOGIN.SERVICES": "1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
           "Microsoft.AspNetCore.DataProtection": "5.0.4",
           "Microsoft.Extensions.DependencyInjection": "5.0.1",
@@ -2813,6 +2814,17 @@
         },
         "compile": {
           "LOGIN.DATA.dll": {}
+        }
+      },
+      "LOGIN.SERVICES/1.0.0": {
+        "dependencies": {
+          "LOGIN.DATA": "1.0.0"
+        },
+        "runtime": {
+          "LOGIN.SERVICES.dll": {}
+        },
+        "compile": {
+          "LOGIN.SERVICES.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery.Reference/3.1.0.0": {
@@ -5828,6 +5840,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "LOGIN.DATA/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LOGIN.SERVICES/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

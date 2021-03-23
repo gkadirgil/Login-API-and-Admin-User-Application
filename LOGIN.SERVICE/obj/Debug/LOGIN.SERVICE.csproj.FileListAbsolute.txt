@@ -1,0 +1,6 @@
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\bin\Debug\LOGIN.SERVICE.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\bin\Debug\LOGIN.SERVICE.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\obj\Debug\LOGIN.SERVICE.csprojAssemblyReference.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\obj\Debug\LOGIN.SERVICE.csproj.CoreCompileInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\obj\Debug\LOGIN.SERVICE.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICE\obj\Debug\LOGIN.SERVICE.pdb

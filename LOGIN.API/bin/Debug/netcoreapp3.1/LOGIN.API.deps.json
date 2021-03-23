@@ -32,6 +32,7 @@
       "LOGIN.API/1.0.0": {
         "dependencies": {
           "LOGIN.DATA": "1.0.0",
+          "LOGIN.SERVICES": "1.0.0",
           "NSwag.AspNetCore": "13.10.8",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -2016,6 +2017,17 @@
         },
         "compile": {
           "LOGIN.DATA.dll": {}
+        }
+      },
+      "LOGIN.SERVICES/1.0.0": {
+        "dependencies": {
+          "LOGIN.DATA": "1.0.0"
+        },
+        "runtime": {
+          "LOGIN.SERVICES.dll": {}
+        },
+        "compile": {
+          "LOGIN.SERVICES.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -4683,6 +4695,11 @@
       "hashPath": "yamldotnet.9.1.4.nupkg.sha512"
     },
     "LOGIN.DATA/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LOGIN.SERVICES/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

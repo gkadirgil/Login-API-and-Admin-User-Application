@@ -75,5 +75,6 @@ C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\N
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\NSwag.Generation.dll
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\NSwag.Generation.AspNetCore.dll
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\YamlDotNet.dll
-C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\obj\Debug\netcoreapp3.1\LOGIN.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.API.xml
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb

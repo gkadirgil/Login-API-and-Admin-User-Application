@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Rotativa;
 using Rotativa.AspNetCore;
 using System;
@@ -128,7 +127,6 @@ namespace LoginApplication.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, model.Email),
-                    //new Claim("FullName",dataUser.FirstName),
                     new Claim(ClaimTypes.Role,"User")
                 };
 
@@ -141,11 +139,6 @@ namespace LoginApplication.Controllers
                 ViewBag.FirstName = dataUser.FirstName.ToUpper();
                 ViewBag.LastName = dataUser.LastName.ToUpper();
 
-                //var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
-
-                // Get the claims values
-                //var name = identity.Claims.Where(c => c.Type == ClaimTypes.Email)
-                //                   .Select(c => c.Value).SingleOrDefault();
 
                 return RedirectToAction("Index", "User");
             }

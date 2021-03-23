@@ -1,0 +1,12 @@
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.csprojAssemblyReference.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.AssemblyInfoInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.AssemblyInfo.cs
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.csproj.CoreCompileInputs.cache
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.deps.json
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\bin\Debug\netcoreapp3.1\LOGIN.DATA.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\bin\Debug\netcoreapp3.1\LOGIN.DATA.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.csproj.CopyComplete
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.SERVICES\obj\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb

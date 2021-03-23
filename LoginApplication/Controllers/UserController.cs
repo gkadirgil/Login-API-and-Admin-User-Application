@@ -25,8 +25,7 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
@@ -43,7 +42,7 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
@@ -89,7 +88,7 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            UserServices userServices = new UserServices();
+            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
 
