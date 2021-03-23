@@ -83,11 +83,7 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult MyRequests()
         {
-            //var identity = (ClaimsIdentity)User.Identity;
-            //var role = identity.FindFirst(ClaimTypes.Role).Value;
-            ////IEnumerable<Claim> claims = identity.Claims;
-            
-            string role=UserAuth();
+            string role =UserAuth();
             if (role == "Admin")
             {
                 return RedirectToAction("Index", "Admin");

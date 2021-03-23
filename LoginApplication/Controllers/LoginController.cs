@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Rotativa;
 using Rotativa.AspNetCore;
 using System;
@@ -15,6 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,13 +43,10 @@ namespace LoginApplication.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> _PRegister(User data)
         {
-            Login model = new Login();
-           
-
-            var dataAdmin = Get<Admin>("Login/LoginAdmin/" + model.Email + "/" + model.Password);
-            var dataUser = Get<User>("Login/LoginUser/" + model.Email + "/" + model.Password);
-
             
+            var dataAdmin = Get<Admin>("Login/LoginAdmin/" + data.Email + "/" + data.Password);
+            var dataUser = Get<User>("Login/LoginUser/" + data.Email + "/" + data.Password);
+
 
             if (dataAdmin != null)
             {
@@ -64,15 +63,13 @@ namespace LoginApplication.Controllers
 
             else if (dataUser==null)
             {
-                LOGAPDBContext context = new LOGAPDBContext();
-                data.IsActive = true;
-                data.RegisterTime = DateTime.Now;
-                context.Users.Add(data);
-                context.SaveChanges();
+                
+                data=Post<User>("Login/Register/",data);
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, data.Email)
+                    new Claim(ClaimTypes.Email, data.Email),
+                    new Claim(ClaimTypes.Role,"User")
 
                 };
 

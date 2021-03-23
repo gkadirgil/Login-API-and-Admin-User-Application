@@ -31,7 +31,7 @@ namespace LOGIN.API.Controllers
             data = userServices.AdminLogin(model);
             return data;
         }
-      
+
         /// <summary>
         /// User Login
         /// </summary>
@@ -54,12 +54,12 @@ namespace LOGIN.API.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [HttpPost]
-        public Login Register([FromBody] User data)
+        [HttpPost("{data}")]
+        public User Register([FromBody]User data)
         {
             // TO DO: KAYIT İŞLEMLERİ YAPILIRKEN ENCRYPT İŞLEMLERİ YAPILACAK...
 
-            Login model = new Login();
+            
             LOGAPDBContext context = new LOGAPDBContext();
             UserServices userServices = new UserServices();
            
@@ -69,9 +69,8 @@ namespace LOGIN.API.Controllers
                 data.RegisterTime = DateTime.Now;
                 context.Users.Add(data);
                 context.SaveChanges();
-                model.Email = data.Email;
-                model.Password = data.Password;
-                return model;
+
+                return data;
             }
 
             else
