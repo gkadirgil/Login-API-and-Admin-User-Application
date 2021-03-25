@@ -199,3 +199,4 @@ C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcorea
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error2.cshtml.g.cs
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\LoginApplication.MvcApplicationPartsAssemblyInfo.cs

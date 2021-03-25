@@ -1,14 +1,9 @@
 ﻿using Data.Models;
-using Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -29,6 +24,7 @@ namespace LOGIN.APPLICATION.Controllers
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            TempData["UserInfo"] = ViewBag.UserInfo;
 
             return View();
         }
@@ -42,10 +38,8 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
+            ViewBag.UserInfo = TempData["UserInfo"];
 
-            int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
             return View();
         }
 
@@ -54,10 +48,7 @@ namespace LOGIN.APPLICATION.Controllers
         public async Task<IActionResult> NewRequest(IFormFile file, UserClaim data)
         {
 
-
             LOGAPDBContext context = new LOGAPDBContext();
-
-
 
             if (file != null)
             {
@@ -70,12 +61,10 @@ namespace LOGIN.APPLICATION.Controllers
 
             }
 
-
             data.RequestDate = DateTime.Now;
             data.UserId = int.Parse(HttpContext.Session.GetString("User"));
             context.UserClaims.Add(data);
             context.SaveChanges();
-
 
             return RedirectToAction("Index");
         }
@@ -90,7 +79,7 @@ namespace LOGIN.APPLICATION.Controllers
 
             LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            ViewBag.UserInfo = TempData["UserInfo"];
 
             var data = userServices.GetListUserRequestWithById(UserId);
             foreach (var item in data)
@@ -104,6 +93,7 @@ namespace LOGIN.APPLICATION.Controllers
 
         }
 
+        [NonAction]
         public string UserAuth()
         {
             var identity = (ClaimsIdentity)User.Identity;

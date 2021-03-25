@@ -78,3 +78,4 @@ C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\Y
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.API.xml
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
 C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb
+C:\Users\gkadi\source\repos\LoginApplication\LOGIN.API\obj\Debug\netcoreapp3.1\LOGIN.API.MvcApplicationPartsAssemblyInfo.cs

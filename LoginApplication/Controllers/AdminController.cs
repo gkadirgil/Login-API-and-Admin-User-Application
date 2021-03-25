@@ -1,13 +1,9 @@
 ﻿using Data.Models;
-using Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LOGIN.APPLICATION.Controllers
 {
@@ -25,7 +21,8 @@ namespace LOGIN.APPLICATION.Controllers
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
             ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
-            
+
+            TempData["AdminInfo"] = ViewBag.AdminInfo;
 
             return View();
 
@@ -38,16 +35,11 @@ namespace LOGIN.APPLICATION.Controllers
             {
                 return RedirectToAction("Index", "User");
             }
-
-            //UserServices userServices = new UserServices();
+            
             LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
-
-            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
-
             var data = userServices.GetUserRequsetListFalse();
 
+            ViewBag.AdminInfo = TempData["AdminInfo"];
             return View(data);
 
         }
@@ -60,19 +52,13 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-
-            //UserServices userServices = new UserServices();
             LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
-
-            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
-
-           
             var data = userServices.GetUserRequestWithById(id);
+
             string path = Path.Combine(Directory.GetCurrentDirectory(), data.DocumentPath);
             data.UserDocument = Path.GetFileName(path);
 
+            ViewBag.AdminInfo = TempData["AdminInfo"];
             return View("InboxDetail", data);
         }
 
@@ -94,7 +80,6 @@ namespace LOGIN.APPLICATION.Controllers
             LOGIN.SERVICES.MailServices mailServices = new LOGIN.SERVICES.MailServices();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
 
             var valueAdmin = adminServices.GetAdminWithById(admin_id);
             var valueUser = userServices.GetUserWithById(data.UserId);
@@ -127,8 +112,7 @@ namespace LOGIN.APPLICATION.Controllers
 
             mailServices.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
 
-            
-
+            ViewBag.AdminInfo = TempData["AdminInfo"];
             return RedirectToAction("Index");
         }
 
@@ -142,16 +126,13 @@ namespace LOGIN.APPLICATION.Controllers
 
             
             LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
-
-            int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
-
             var data = userServices.GetUserRequsetListTrue();
 
+            ViewBag.AdminInfo = TempData["AdminInfo"];
             return View(data);
         }
 
+        [NonAction]
         public string AdminAuth()
         {
             var identity = (ClaimsIdentity)User.Identity;

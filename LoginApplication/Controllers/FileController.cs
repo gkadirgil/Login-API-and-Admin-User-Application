@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LoginApplication.Controllers
 {
@@ -25,6 +21,7 @@ namespace LoginApplication.Controllers
         {
             //Build the File Path.
             string path = Path.Combine(this.Environment.WebRootPath, "files/") + fileName;
+            
 
             //Read the File data into Byte Array.
             byte[] bytes = System.IO.File.ReadAllBytes(fileName);

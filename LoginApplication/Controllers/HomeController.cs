@@ -1,18 +1,10 @@
-﻿using LoginApplication.Models;
+﻿using LoginApplication.Infrustructor;
+using LoginApplication.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Data.Models;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
-using Data.Services;
-using Microsoft.Extensions.DependencyInjection;
-using LoginApplication.Infrustructor;
-using Microsoft.AspNetCore.Authorization;
 using System.Globalization;
 
 namespace LoginApplication.Controllers
