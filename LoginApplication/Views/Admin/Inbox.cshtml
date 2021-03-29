@@ -1,4 +1,5 @@
-﻿@model List<Data.Models.UserClaim>
+﻿@*@addTagHelper * ,Microsoft.AspNetCore.Mvc.TagHelpers*@
+@model List<LOGIN.DATA.Models.UserClaim>
 @{
     ViewData["Title"] = "Inbox";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -21,7 +22,10 @@
             <td>@item.FirstName</td>
             <td>@item.LastName</td>
             <td>@item.RequestDate</td>
-            <td><a href="/Admin/InboxDetail/@item.ClaimId" class="btn btn-warning">Detail</a></td>
+            <td>
+                <a asp-controller="Admin" asp-action="InboxDetail" asp-route-id="@item.ClaimId" class="btn btn-warning">Detail</a>
+            </td>
+            
 
         </tr>
     }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Data.Models
+namespace LOGIN.DATA.Models
 {
     public partial class LOGAPDBContext : DbContext
     {

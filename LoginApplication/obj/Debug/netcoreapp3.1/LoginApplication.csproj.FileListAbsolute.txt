@@ -200,3 +200,7 @@ C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcorea
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.dll
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\LOGIN.SERVICES.pdb
 C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\obj\Debug\netcoreapp3.1\LoginApplication.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+C:\Users\gkadi\source\repos\LoginApplication\LoginApplication\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll

@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using LOGIN.DATA.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace LoginApplication.Controllers
 {
     public class ExportController : Controller
     {
+        LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
+        LOGAPDBContext context = new LOGAPDBContext();
         public IActionResult Index()
         {
             string role = AdminAuth();
@@ -16,7 +19,8 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            ViewBag.AdminInfo = TempData["AdminInfo"];
+            int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
 
             return View();
         }
@@ -28,10 +32,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
             
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
 
-            ViewBag.AdminInfo = TempData["AdminInfo"];
+            int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult UserClaimPos()
@@ -42,10 +46,10 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status=="Positive").ToList();
 
-            ViewBag.AdminInfo = TempData["AdminInfo"];
+            int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult UserClaimNeg()
@@ -56,28 +60,25 @@ namespace LoginApplication.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status== "Negative").ToList();
 
-            ViewBag.AdminInfo = TempData["AdminInfo"];
+            int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
+            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult ExportPDFAll()
         {
            
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
             return new Rotativa.AspNetCore.ViewAsPdf("UserClaimAll","Export", data);
         }
         public IActionResult ExportPDFPoz()
         {
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
             return new Rotativa.AspNetCore.ViewAsPdf("UserClaimPos", data);
         }
         public IActionResult ExportPDFNeg()
         {
-            LOGAPDBContext context = new LOGAPDBContext();
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
             return new Rotativa.AspNetCore.ViewAsPdf("UserClaimNeg", data);
         }

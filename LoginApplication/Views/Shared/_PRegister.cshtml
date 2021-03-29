@@ -1,4 +1,4 @@
-﻿@model Data.Models.User
+﻿@model LOGIN.DATA.Models.User
 <div class="pop-up">
     <div id="small-dialog" class="mfp-hide book-form">
         <div class="login-form login-form-left">
@@ -6,8 +6,8 @@
                 <h3>Register form user</h3>
                 <div class="login-agileits-top">
                     <form asp-action="_PRegister" asp-controller="Login" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="text" class="name" asp-for="FirstName" Placeholder="First Name" required="" />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="text" class="name" asp-for="FirstName" Placeholder="First Name"/>
                         <input type="text" class="name" asp-for="LastName" Placeholder="Last Name" required="" />
                         <input type="email" class="email" asp-for="Email" Placeholder="Email" required="" />
                         <input type="text" class="phone" asp-for="PhoneNumber" Placeholder="Phone Number" required="" />
@@ -17,6 +17,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

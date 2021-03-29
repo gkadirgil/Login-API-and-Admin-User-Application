@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YMMJpiuGoB1AIgOZRFVzhu3S+RTUd8XJdj45zmQEvQ39zaLV6YMdvefTuMiNDBOmZRD6cUK//YY3povrUDFACA==",
+  "dgSpecHash": "zIiP56Gbah663tf/z2NhuxO/yyglZVra32XQIs/7YjyUultaG8MrkRvBZ8G2h1hrfqeC2vAlxzJ4k6hzUlqPGw==",
   "success": true,
   "projectFilePath": "C:\\Users\\gkadi\\source\\repos\\LoginApplication\\LoginApplication\\LoginApplication.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gkadi\\.nuget\\packages\\fluentvalidation\\9.5.3\\fluentvalidation.9.5.3.nupkg.sha512",
+    "C:\\Users\\gkadi\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.5.3\\fluentvalidation.aspnetcore.9.5.3.nupkg.sha512",
+    "C:\\Users\\gkadi\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.5.3\\fluentvalidation.dependencyinjectionextensions.9.5.3.nupkg.sha512",
     "C:\\Users\\gkadi\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.0.1\\microsoft.aspnetcore.antiforgery.2.0.1.nupkg.sha512",
     "C:\\Users\\gkadi\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\gkadi\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

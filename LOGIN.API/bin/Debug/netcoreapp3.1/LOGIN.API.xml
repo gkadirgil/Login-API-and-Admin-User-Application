@@ -20,7 +20,7 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:LOGIN.API.Controllers.LoginController.Register(Data.Models.User)">
+        <member name="M:LOGIN.API.Controllers.LoginController.Register(LOGIN.DATA.Models.User)">
             <summary>
             User Register
             </summary>

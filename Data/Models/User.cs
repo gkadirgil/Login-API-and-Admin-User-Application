@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace Data.Models
+namespace LOGIN.DATA.Models
 {
     public partial class User
     {

@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using LOGIN.DATA.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace LOGIN.APPLICATION.Controllers
 {
     public class UserController : Controller
     {
+        LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
 
         public IActionResult Index()
         {
@@ -20,11 +22,8 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
-
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
-            TempData["UserInfo"] = ViewBag.UserInfo;
 
             return View();
         }
@@ -32,13 +31,14 @@ namespace LOGIN.APPLICATION.Controllers
         [HttpGet]
         public IActionResult NewRequest()
         {
+            int UserId = int.Parse(HttpContext.Session.GetString("User"));
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+
             string role = UserAuth();
             if (role == "Admin")
             {
                 return RedirectToAction("Index", "Admin");
             }
-
-            ViewBag.UserInfo = TempData["UserInfo"];
 
             return View();
         }
@@ -47,6 +47,8 @@ namespace LOGIN.APPLICATION.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewRequest(IFormFile file, UserClaim data)
         {
+            int UserId = int.Parse(HttpContext.Session.GetString("User"));
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
 
             LOGAPDBContext context = new LOGAPDBContext();
 
@@ -71,15 +73,13 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult MyRequests()
         {
-            string role =UserAuth();
+            int UserId = int.Parse(HttpContext.Session.GetString("User"));
+            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            string role = UserAuth();
             if (role == "Admin")
             {
                 return RedirectToAction("Index", "Admin");
             }
-
-            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-            int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = TempData["UserInfo"];
 
             var data = userServices.GetListUserRequestWithById(UserId);
             foreach (var item in data)

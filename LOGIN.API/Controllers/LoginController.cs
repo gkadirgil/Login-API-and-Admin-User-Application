@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using LOGIN.DATA.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -41,7 +42,7 @@ namespace LOGIN.API.Controllers
 
             User data = new User();
             Login model = new Login() { Email = email, Password = password };
-            
+
             data = userServices.UserLogin(model);
 
             return data;
@@ -53,15 +54,14 @@ namespace LOGIN.API.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("{data}")]
-        public User Register([FromBody]User data)
+        public User Register([FromBody] User data)
         {
             // TO DO: KAYIT İŞLEMLERİ YAPILIRKEN ENCRYPT İŞLEMLERİ YAPILACAK...
 
-            
+
             LOGAPDBContext context = new LOGAPDBContext();
             LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-            //UserServices userServices = new UserServices();
-           
+
             if (userServices.CheckEmail(data.Email))
             {
                 data.IsActive = true;
@@ -72,8 +72,7 @@ namespace LOGIN.API.Controllers
                 return data;
             }
 
-            else
-                return null;
+            return null;
         }
 
     }

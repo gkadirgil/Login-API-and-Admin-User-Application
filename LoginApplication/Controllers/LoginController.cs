@@ -1,4 +1,4 @@
-﻿using Data.Models;
+﻿using LOGIN.DATA.Models;
 using LoginApplication.Infrustructor;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,47 +30,47 @@ namespace LoginApplication.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> _PRegister(User data)
         {
-            
-            var dataAdmin = Get<Admin>("Login/LoginAdmin/" + data.Email + "/" + data.Password);
-            var dataUser = Get<User>("Login/LoginUser/" + data.Email + "/" + data.Password);
+           
+                var dataAdmin = Get<Admin>("Login/LoginAdmin/" + data.Email + "/" + data.Password);
+                var dataUser = Get<User>("Login/LoginUser/" + data.Email + "/" + data.Password);
 
 
-            if (dataAdmin != null)
-            {
+                if (dataAdmin != null)
+                {
 
-                HttpContext.Session.SetString("Admin", dataAdmin.AdminId.ToString());
-                return RedirectToAction("Error", "Home");
-            }
+                    HttpContext.Session.SetString("Admin", dataAdmin.AdminId.ToString());
+                    return RedirectToAction("Error", "Home");
+                }
 
-            else if (dataUser != null)
-            {
-                return RedirectToAction("Index", "Home");
+                else if (dataUser != null)
+                {
+                    return RedirectToAction("Index", "Home");
 
-            }
+                }
 
-            else if (dataUser==null)
-            {
-                
-                data=Post<User>("Login/Register/",data);
+                else if (dataUser == null)
+                {
 
-                var claims = new List<Claim>
+                    data = Post<User>("Login/Register/", data);
+
+                    var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, data.Email),
                     new Claim(ClaimTypes.Role,"User")
 
                 };
 
-                var useridentity = new ClaimsIdentity(claims, "Login");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                await HttpContext.SignInAsync(principal);
+                    var useridentity = new ClaimsIdentity(claims, "Login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                    await HttpContext.SignInAsync(principal);
 
-                HttpContext.Session.SetString("User", data.UserId.ToString());
-                return RedirectToAction("Index", "User");
-            }
+                    HttpContext.Session.SetString("User", data.UserId.ToString());
+                    return RedirectToAction("Index", "User");
+                }
+            
             
 
             return RedirectToAction("Index", "Home");
-
 
 
         }

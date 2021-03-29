@@ -1,4 +1,4 @@
-﻿@using Data.Models
+﻿@using LOGIN.DATA.Models
 @model List<UserClaim>
 
 @{
@@ -51,7 +51,7 @@
                         }
                     }
                 }
-                </tbody>
+            </tbody>
             <tbody>
                 @foreach (var item in Model)
                 {
@@ -72,44 +72,9 @@
                     }
                 }
             </tbody>
-            </table>
-
-            @*<table class="table table-hover">
-                <thead >
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th >User Description</th>
-                        <th>Admin Description</th>
-                        <th>Request Date</th>
-                        <th>Verification Date</th>
-                        <th>Status</th>
-                        <th>Admin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        @if (item.IsActive == true && item.Status == "Negative")
-                        {
-                            {
-                                <tr>
-                                    <td>@item.FirstName</td>
-                                    <td>@item.LastName</td>
-                                    <td>@item.UserDescription</td>
-                                    <td>@item.AdminDescription</td>
-                                    <td>@item.RequestDate</td>
-                                    <td>@item.VerificationDate</td>
-                                    <td class="text-danger">Negative</td>
-                                    <td>@item.AdminDetail</td>
-                                </tr>
-                            }
-                        }
-                    }
-                    </tbody>
-                </table>*@
-            </form>
-        </div>
-        <div>
-            <a asp-action="Index">| Back to Home</a>
-        </div>
+        </table>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">| Back to Home</a>
+</div>
