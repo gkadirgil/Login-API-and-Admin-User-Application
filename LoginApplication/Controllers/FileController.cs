@@ -20,15 +20,16 @@ namespace LoginApplication.Controllers
         public FileResult DownloadFile(string fileName)
         {
             //Build the File Path.
-            string path = Path.Combine(this.Environment.WebRootPath, "files/") + fileName;
-            
+            string path = Path.Combine(this.Environment.WebRootPath, "files/" + fileName);
 
             //Read the File data into Byte Array.
             byte[] bytes = System.IO.File.ReadAllBytes(fileName);
             //byte[] bytes = System.IO.File.ReadAllBytes(path);
 
             //Send the File to Download.
+
             return File(bytes, "application/octet-stream", fileName);
+
         }
 
     }

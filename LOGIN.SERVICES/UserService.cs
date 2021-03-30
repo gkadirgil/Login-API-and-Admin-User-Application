@@ -104,5 +104,15 @@ namespace LOGIN.SERVICES
             }
 
         } 
+
+        public bool FileExtentionControl(string FileExtention)
+        {
+            if (FileExtention != ".pdf" && FileExtention !=".doc" && FileExtention !="docx")
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

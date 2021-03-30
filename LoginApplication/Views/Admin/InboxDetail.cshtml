@@ -35,8 +35,7 @@
             <div class="form-group">
                 <label class="control-label" style="font-weight:bold">Document</label>
                 <label asp-for="UserDocument" class="control-label" style="font-weight:bold">:</label>
-                @Html.ActionLink("Click for User Document", "DownloadFile", "File", new { fileName = Model.DocumentPath })
-                <span asp-validation-for="UserDocument" class="text-danger"></span>
+                <a asp-controller="File" asp-action="DownloadFile" asp-route-fileName="@Model.DocumentPath" class="btn btn-sm btn-primary rounded-0">Click for User Document</a>
                 @Html.HiddenFor(x => x.UserDocument)
                 @Html.HiddenFor(x => x.DocumentPath)
             </div>

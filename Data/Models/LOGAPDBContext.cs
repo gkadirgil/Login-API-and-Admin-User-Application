@@ -138,9 +138,7 @@ namespace LOGIN.DATA.Models
                     .HasMaxLength(50)
                     .HasDefaultValueSql("('None')");
 
-                entity.Property(e => e.UserDescription)
-                    .IsRequired()
-                    .HasMaxLength(2000);
+                entity.Property(e => e.UserDescription).HasMaxLength(2000);
 
                 entity.Property(e => e.VerificationDate)
                     .HasColumnType("datetime")

@@ -12,6 +12,8 @@ namespace LoginApplication.Models.Validator
         {
             RuleFor(x => x.FirstName).NotNull().WithMessage("This field is required.");
             RuleFor(x => x.LastName).NotNull().WithMessage("This field is required.");
+            
+            
         }
     }
 }

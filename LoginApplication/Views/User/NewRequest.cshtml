@@ -1,7 +1,7 @@
 ﻿@model LOGIN.DATA.Models.UserClaim
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 @{
     ViewData["Title"] = "NewRequest";
@@ -12,7 +12,7 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        @*<div asp-validation-summary="All" class="text-danger"></div>*@
         <form asp-action="NewRequest" enctype="multipart/form-data" asp-controller="User" method="post">
             <div class="form-group">
 
@@ -33,7 +33,9 @@
             </div>
 
             <div class="form-group">
-                <input type="file" name="file" required/>
+                <label style="font-style:oblique; color:lightgray">Choose type of pdf, doc, docx</label>
+                <input type="file" name="file" class="form-control" required/>
+                <span class="text-danger">@ViewBag.FileExtentionError</span>
             </div>
 
             <div class="form-group">
@@ -43,7 +45,7 @@
         </form>
     </div>
     <div class="col-md-4">
-        <div >
+        <div>
             <p style="font-weight: bold; text-align:center ">Date Time</p>
         </div>
 

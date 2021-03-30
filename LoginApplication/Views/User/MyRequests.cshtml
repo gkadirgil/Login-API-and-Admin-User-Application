@@ -27,8 +27,11 @@
             <td>@item.FirstName</td>
             <td>@item.LastName</td>
             <td>@item.UserDescription</td>
-            <td>@Html.ActionLink("Document", "DownloadFile","File", new { fileName = @item.DocumentPath })</td>
-            @*<td>@item.Document</td>*@
+            <td>
+                <a asp-controller="File" asp-action="DownloadFile" asp-route-fileName="@item.DocumentPath">
+                    <div class="sb-nav-link-icon" style="text-align:center"><i class="fas fa-file-download fa-2x"></i></div>
+                </a>
+            </td>
             <td>@item.RequestDate</td>
             <td>@item.VerificationDate</td>
             <td>@item.Status</td>

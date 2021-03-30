@@ -55,12 +55,23 @@ namespace LOGIN.APPLICATION.Controllers
             if (file != null)
             {
                 string fileExtension = Path.GetExtension(file.FileName);
-                string fileName = Guid.NewGuid() + fileExtension;
+                //string fileName = Guid.NewGuid() + fileExtension;
+                if (userServices.FileExtentionControl(fileExtension))
+                {
+                    ViewBag.FileExtentionError = fileExtension+" is invalid file type";
+                    return NewRequest();
+                }
 
+                string fileName = Path.GetFileName(file.FileName);
                 data.DocumentPath = (string)(Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/files/{fileName}"));
                 using var stream = new FileStream(data.DocumentPath, FileMode.Create);
                 await file.CopyToAsync(stream);
 
+            }
+            else
+            {
+               
+                return NewRequest();
             }
 
             data.RequestDate = DateTime.Now;
