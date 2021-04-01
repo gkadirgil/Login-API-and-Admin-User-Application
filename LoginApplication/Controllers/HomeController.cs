@@ -1,4 +1,6 @@
-﻿using LoginApplication.Infrustructor;
+﻿using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LoginApplication.Infrustructor;
 using LoginApplication.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +16,15 @@ namespace LoginApplication.Controllers
     {
        
         private readonly ILogger<HomeController> _logger;
+        private readonly IPersonRepository<Admin> _adminRepository;
+        private readonly IPersonRepository<User> _userRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository)
         {
 
             _logger = logger;
+            _adminRepository = adminRepository;
+            _userRepository = userRepository;
         }
 
         [AllowAnonymous]
@@ -36,14 +42,11 @@ namespace LoginApplication.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-           
-            LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
-            LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
-
+            
             if (HttpContext.Session.GetString("Admin") != null)
             {
                 int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-                var valueAdmin = adminServices.GetAdminWithById(admin_id);
+                var valueAdmin = _adminRepository.GetPersonWithById(admin_id);
                 ViewBag.AdminFirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(valueAdmin.FirstName);
                 ViewBag.AdminLastName = valueAdmin.LastName.ToUpper();
                 ViewBag.AdminID = admin_id;
@@ -52,7 +55,7 @@ namespace LoginApplication.Controllers
             else if (HttpContext.Session.GetString("User") !=null)
             {
                 int user_id = int.Parse(HttpContext.Session.GetString("User"));
-                var valueUser = userServices.GetUserWithById(user_id);
+                var valueUser = _userRepository.GetPersonWithById(user_id);
                 ViewBag.UserFirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(valueUser.FirstName);
                 ViewBag.UserLastName = valueUser.LastName.ToUpper();
             }

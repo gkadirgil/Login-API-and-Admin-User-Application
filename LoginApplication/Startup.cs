@@ -1,20 +1,18 @@
+using FluentValidation.AspNetCore;
+using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LOGIN.SERVICES.IRepository;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Rotativa.AspNetCore;
+using System;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using FluentValidation.AspNetCore;
 
 namespace LoginApplication
 {
@@ -32,8 +30,16 @@ namespace LoginApplication
         {
             services.AddControllersWithViews()
                     .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddSingleton<IPersonRepository<Admin>,AdminRepository>();
+            services.AddSingleton<IPersonRepository<User>,UserRepository>();
+            services.AddSingleton<IFileRepository, FileRepository>();
+            services.AddSingleton<IMailRepository,MailRepository>();
+            services.AddSingleton<IUserRequestRepository, UserRequestRepository>();
+
             services.AddSession(x => x.IdleTimeout = TimeSpan.FromDays(1));
             services.AddMvc();
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
             {
                 x.LoginPath = "/Home/Index";
@@ -68,11 +74,11 @@ namespace LoginApplication
 
             app.UseRouting();
 
-            app.UseSession();
-
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
@@ -80,8 +86,9 @@ namespace LoginApplication
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
             RotativaConfiguration.Setup(_env);
+            
         }
     }
 }

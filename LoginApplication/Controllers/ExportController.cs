@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -9,7 +10,13 @@ namespace LoginApplication.Controllers
 {
     public class ExportController : Controller
     {
-        LOGIN.SERVICES.AdminServices adminServices = new LOGIN.SERVICES.AdminServices();
+        private readonly IPersonRepository<Admin> _adminRepository;
+
+        public ExportController(IPersonRepository<Admin> adminRepository)
+        {
+            _adminRepository = adminRepository;
+        }
+
         LOGAPDBContext context = new LOGAPDBContext();
         public IActionResult Index()
         {
@@ -20,7 +27,7 @@ namespace LoginApplication.Controllers
             }
 
             int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(AdminId);
 
             return View();
         }
@@ -35,7 +42,7 @@ namespace LoginApplication.Controllers
             var data = context.UserClaims.Where(w => w.IsActive == true).ToList();
 
             int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult UserClaimPos()
@@ -49,7 +56,7 @@ namespace LoginApplication.Controllers
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status=="Positive").ToList();
 
             int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult UserClaimNeg()
@@ -63,7 +70,7 @@ namespace LoginApplication.Controllers
             var data = context.UserClaims.Where(w => w.IsActive == true && w.Status== "Negative").ToList();
 
             int AdminId = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(AdminId);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(AdminId);
             return View(data);
         }
         public IActionResult ExportPDFAll()

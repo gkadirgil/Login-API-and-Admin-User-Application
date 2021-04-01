@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using LOGIN.SERVICES.IRepository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 
@@ -7,6 +8,7 @@ namespace LoginApplication.Controllers
     public class FileController : Controller
     {
         private IWebHostEnvironment Environment;
+        private IFileRepository _fileRepository;
 
         public FileController(IWebHostEnvironment _environment)
         {

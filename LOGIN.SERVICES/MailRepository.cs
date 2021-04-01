@@ -1,11 +1,15 @@
-﻿using Data.Models;
-using LOGIN.DATA.Models;
+﻿using LOGIN.DATA.Models;
+using LOGIN.SERVICES.IRepository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 
 namespace LOGIN.SERVICES
 {
-    public class MailServices
+    public class MailRepository: IMailRepository
     {
         public void SendMail(MailModel model, string email, string password)
         {
@@ -24,6 +28,23 @@ namespace LOGIN.SERVICES
             smtp.EnableSsl = true;
 
             smtp.Send(mymail);
+
+        }
+        public bool CheckEmail(string email)
+        {
+            using (LOGAPDBContext context = new LOGAPDBContext())
+            {
+                var Value_User = context.Users.Where(w => w.Email == email).Select(s => s.Email).FirstOrDefault();
+                var Value_Admin = context.Admins.Where(w => w.Email == email).Select(s => s.Email).FirstOrDefault();
+
+                if (Value_User == null && Value_Admin == null)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+
 
         }
     }

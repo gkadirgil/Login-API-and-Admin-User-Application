@@ -1,5 +1,7 @@
 ﻿using Data.Models;
 using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LOGIN.SERVICES.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,8 +12,18 @@ namespace LOGIN.APPLICATION.Controllers
 {
     public class AdminController : Controller
     {
-        LOGIN.SERVICES.AdminServices adminServices = new SERVICES.AdminServices();
-        LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
+        private readonly IPersonRepository<Admin> _adminRepository;
+        private readonly IPersonRepository<User> _userRepository;
+        private readonly IUserRequestRepository _userRequestRepository;
+        private readonly IMailRepository _mailRepository;
+        public AdminController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IMailRepository mailRepository)
+        {
+            _adminRepository = adminRepository;
+            _userRepository = userRepository;
+            _userRequestRepository = userRequestRepository;
+            _mailRepository = mailRepository;
+        }
+        
         public IActionResult Index()
         {
             string role = AdminAuth();
@@ -21,7 +33,7 @@ namespace LOGIN.APPLICATION.Controllers
             }
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
 
             return View();
 
@@ -35,10 +47,11 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var data = userServices.GetUserRequsetListFalse();
+            var data = _userRequestRepository.GetUserRequsetListFalse();
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
-            
+            //ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
+
             return View(data);
 
         }
@@ -51,13 +64,14 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var data = userServices.GetUserRequestWithById(id);
+            var data = _userRequestRepository.GetUserRequestWithById(id);
 
             string path = Path.Combine(Directory.GetCurrentDirectory(), data.DocumentPath);
             data.UserDocument = Path.GetFileName(path);
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
+
             return View("InboxDetail", data);
         }
 
@@ -73,12 +87,11 @@ namespace LOGIN.APPLICATION.Controllers
         {
 
             LOGAPDBContext context = new LOGAPDBContext();
-            LOGIN.SERVICES.MailServices mailServices = new LOGIN.SERVICES.MailServices();
+            
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-
-            var valueAdmin = adminServices.GetAdminWithById(admin_id);
-            var valueUser = userServices.GetUserWithById(data.UserId);
+            var valueAdmin = _adminRepository.GetPersonWithById(admin_id);
+            var valueUser = _userRepository.GetPersonWithById(data.UserId);
 
 
             var newData = context.UserClaims.Find(data.ClaimId);
@@ -106,9 +119,8 @@ namespace LOGIN.APPLICATION.Controllers
             context.MailModels.Add(mailing);
             context.SaveChanges();
 
-            mailServices.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
-
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
+            _mailRepository.SendMail(mailing, valueAdmin.Email, valueAdmin.Password);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
 
             return RedirectToAction("Index");
         }
@@ -121,10 +133,11 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var data = userServices.GetUserRequsetListTrue();
+            var data = _userRequestRepository.GetUserRequsetListTrue();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
+            ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
+
             return View(data);
         }
 

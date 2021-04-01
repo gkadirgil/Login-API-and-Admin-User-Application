@@ -1,5 +1,7 @@
 ﻿using Data.Models;
 using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LOGIN.SERVICES.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,8 +14,16 @@ namespace LOGIN.APPLICATION.Controllers
 {
     public class UserController : Controller
     {
-        LOGIN.SERVICES.UserService userServices = new LOGIN.SERVICES.UserService();
+        private readonly IPersonRepository<User> _userRepository;
+        private readonly IUserRequestRepository _userRequestRepository;
+        private readonly IFileRepository _fileRepository;
 
+        public UserController(IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IFileRepository fileRepository)
+        {
+            _userRepository = userRepository;
+            _userRequestRepository = userRequestRepository;
+            _fileRepository = fileRepository;
+        }
         public IActionResult Index()
         {
             string role = UserAuth();
@@ -23,7 +33,7 @@ namespace LOGIN.APPLICATION.Controllers
             }
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
 
             return View();
         }
@@ -32,7 +42,7 @@ namespace LOGIN.APPLICATION.Controllers
         public IActionResult NewRequest()
         {
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
 
             string role = UserAuth();
             if (role == "Admin")
@@ -48,15 +58,14 @@ namespace LOGIN.APPLICATION.Controllers
         public async Task<IActionResult> NewRequest(IFormFile file, UserClaim data)
         {
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
 
             LOGAPDBContext context = new LOGAPDBContext();
 
             if (file != null)
             {
                 string fileExtension = Path.GetExtension(file.FileName);
-                //string fileName = Guid.NewGuid() + fileExtension;
-                if (userServices.FileExtentionControl(fileExtension))
+                if (_fileRepository.FileExtentionControl(fileExtension))
                 {
                     ViewBag.FileExtentionError = fileExtension+" is invalid file type";
                     return NewRequest();
@@ -85,14 +94,14 @@ namespace LOGIN.APPLICATION.Controllers
         public IActionResult MyRequests()
         {
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
-            ViewBag.UserInfo = userServices.GetUserInfoNavBarWitById(UserId);
+            ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
             string role = UserAuth();
             if (role == "Admin")
             {
                 return RedirectToAction("Index", "Admin");
             }
 
-            var data = userServices.GetListUserRequestWithById(UserId);
+            var data = _userRequestRepository.GetListUserRequestWithById(UserId);
             foreach (var item in data)
             {
 

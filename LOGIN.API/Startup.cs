@@ -1,3 +1,6 @@
+using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LOGIN.SERVICES.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,10 @@ namespace LOGIN.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IPersonRepository<Admin>, AdminRepository>();
+            services.AddSingleton<IPersonRepository<User>, UserRepository>();
+            services.AddSingleton<IMailRepository, MailRepository>();
+
             services.AddSwaggerDocument(config =>
             {
             config.PostProcess = (

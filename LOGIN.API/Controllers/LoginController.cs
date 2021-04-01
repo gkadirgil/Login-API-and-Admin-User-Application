@@ -1,5 +1,7 @@
 ﻿using Data.Models;
 using LOGIN.DATA.Models;
+using LOGIN.SERVICES;
+using LOGIN.SERVICES.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -9,6 +11,16 @@ namespace LOGIN.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly IPersonRepository<Admin> _adminRepository;
+        private readonly IPersonRepository<User> _userRepository;
+        private readonly IMailRepository _mailRepository;
+        public LoginController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IMailRepository mailRepository)
+        {
+            _adminRepository = adminRepository;
+            _userRepository = userRepository;
+            _mailRepository = mailRepository;
+        }
+
         /// <summary>
         /// Admin Login 
         /// </summary>
@@ -18,12 +30,11 @@ namespace LOGIN.API.Controllers
         [HttpGet("LoginAdmin/{email}/{password}")]
         public ActionResult<Admin> LoginAdmin(string email, string password)
         {
-            //UserServices userServices = new UserServices();
-            LOGIN.SERVICES.AdminServices adminServices = new SERVICES.AdminServices();
-
             Admin data = new Admin();
             Login model = new Login() { Email = email, Password = password };
-            data = adminServices.AdminLogin(model);
+            //data = adminServices.AdminLogin(model);
+            data = _adminRepository.PersonLogin(email, password);
+
             return data;
         }
 
@@ -37,13 +48,11 @@ namespace LOGIN.API.Controllers
         public ActionResult<User> LoginUser(string email, string password)
         {
 
-            //UserServices userServices = new UserServices();
-            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
-
             User data = new User();
             Login model = new Login() { Email = email, Password = password };
 
-            data = userServices.UserLogin(model);
+            //data = userServices.UserLogin(model);
+            data = _userRepository.PersonLogin(email, password);
 
             return data;
         }
@@ -60,9 +69,8 @@ namespace LOGIN.API.Controllers
 
 
             LOGAPDBContext context = new LOGAPDBContext();
-            LOGIN.SERVICES.UserService userServices = new SERVICES.UserService();
 
-            if (userServices.CheckEmail(data.Email))
+            if (_mailRepository.CheckEmail(data.Email))
             {
                 data.IsActive = true;
                 data.RegisterTime = DateTime.Now;
