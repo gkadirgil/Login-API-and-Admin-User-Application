@@ -1,5 +1,4 @@
-﻿using Data.Models;
-using LOGIN.DATA.Models;
+﻿using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

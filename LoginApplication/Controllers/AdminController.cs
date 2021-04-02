@@ -1,10 +1,12 @@
-﻿using Data.Models;
+﻿using AutoMapper;
 using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
+using LoginApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 
@@ -16,12 +18,14 @@ namespace LOGIN.APPLICATION.Controllers
         private readonly IPersonRepository<User> _userRepository;
         private readonly IUserRequestRepository _userRequestRepository;
         private readonly IMailRepository _mailRepository;
-        public AdminController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IMailRepository mailRepository)
+        private readonly IMapper _mapper;
+        public AdminController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IMailRepository mailRepository, IMapper mapper)
         {
             _adminRepository = adminRepository;
             _userRepository = userRepository;
             _userRequestRepository = userRequestRepository;
             _mailRepository = mailRepository;
+            _mapper = mapper;
         }
         
         public IActionResult Index()
@@ -47,12 +51,12 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var data = _userRequestRepository.GetUserRequsetListFalse();
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
-            //ViewBag.AdminInfo = adminServices.GetAdminInfoNavBarWitById(admin_id);
             ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
+            var data = _userRequestRepository.GetUserRequsetListFalse();
+            List<UserRequestDTO> value=_mapper.Map<List<UserRequestDTO>>(data);
 
-            return View(data);
+            return View(value);
 
         }
 

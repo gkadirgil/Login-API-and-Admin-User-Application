@@ -1,7 +1,8 @@
-﻿using Data.Models;
+﻿using AutoMapper;
 using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
+using LoginApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -14,11 +15,13 @@ namespace LOGIN.API.Controllers
         private readonly IPersonRepository<Admin> _adminRepository;
         private readonly IPersonRepository<User> _userRepository;
         private readonly IMailRepository _mailRepository;
-        public LoginController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IMailRepository mailRepository)
+        private readonly IMapper _mapper;
+        public LoginController(IPersonRepository<Admin> adminRepository, IPersonRepository<User> userRepository, IMailRepository mailRepository, IMapper mapper)
         {
             _adminRepository = adminRepository;
             _userRepository = userRepository;
             _mailRepository = mailRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -28,14 +31,13 @@ namespace LOGIN.API.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpGet("LoginAdmin/{email}/{password}")]
-        public ActionResult<Admin> LoginAdmin(string email, string password)
+        public ActionResult<AdminLoginDTO> LoginAdmin(string email, string password)
         {
-            Admin data = new Admin();
-            Login model = new Login() { Email = email, Password = password };
-            //data = adminServices.AdminLogin(model);
-            data = _adminRepository.PersonLogin(email, password);
 
-            return data;
+            var data = _adminRepository.PersonLogin(email, password);
+            AdminLoginDTO value = _mapper.Map<AdminLoginDTO>(data);
+
+            return value;
         }
 
         /// <summary>
@@ -45,16 +47,13 @@ namespace LOGIN.API.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpGet("LoginUser/{email}/{password}")]
-        public ActionResult<User> LoginUser(string email, string password)
+        public ActionResult<UserLoginDTO> LoginUser(string email, string password)
         {
 
-            User data = new User();
-            Login model = new Login() { Email = email, Password = password };
+            var data = _userRepository.PersonLogin(email, password);
+            UserLoginDTO value = _mapper.Map<UserLoginDTO>(data);
 
-            //data = userServices.UserLogin(model);
-            data = _userRepository.PersonLogin(email, password);
-
-            return data;
+            return value;
         }
 
         /// <summary>
@@ -63,24 +62,19 @@ namespace LOGIN.API.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("{data}")]
-        public User Register([FromBody] User data)
+        public int Register([FromBody] User data)
         {
             // TO DO: KAYIT İŞLEMLERİ YAPILIRKEN ENCRYPT İŞLEMLERİ YAPILACAK...
 
-
             LOGAPDBContext context = new LOGAPDBContext();
 
-            if (_mailRepository.CheckEmail(data.Email))
-            {
-                data.IsActive = true;
-                data.RegisterTime = DateTime.Now;
-                context.Users.Add(data);
-                context.SaveChanges();
+            data.IsActive = true;
+            data.RegisterTime = DateTime.Now;
+            context.Users.Add(data);
+            context.SaveChanges();
 
-                return data;
-            }
+            return data.UserId;
 
-            return null;
         }
 
     }

@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
+using LoginApplication.AutoMappers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,9 @@ namespace LoginApplication
             services.AddSingleton<IFileRepository, FileRepository>();
             services.AddSingleton<IMailRepository,MailRepository>();
             services.AddSingleton<IUserRequestRepository, UserRequestRepository>();
+
+            services.AddAutoMapper(typeof(UserProfil));
+            services.AddAutoMapper(typeof(AdminProfil));
 
             services.AddSession(x => x.IdleTimeout = TimeSpan.FromDays(1));
             services.AddMvc();

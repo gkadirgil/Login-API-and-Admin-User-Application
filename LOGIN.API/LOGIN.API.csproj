@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.10.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Data\LOGIN.DATA.csproj" />
     <ProjectReference Include="..\LOGIN.SERVICES\LOGIN.SERVICES.csproj" />
+    <ProjectReference Include="..\LoginApplication\LoginApplication.csproj" />
   </ItemGroup>
 
 

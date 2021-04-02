@@ -1,5 +1,8 @@
-﻿using LOGIN.DATA.Models;
+﻿using AutoMapper;
+using LOGIN.DATA.Models;
+using LOGIN.SERVICES.IRepository;
 using LoginApplication.Infrustructor;
+using LoginApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +17,14 @@ namespace LoginApplication.Controllers
 {
     public class LoginController : BaseController
     {
+        private readonly IMailRepository _mailRepository;
+        private readonly IMapper _mapper;
 
+        public LoginController(IMailRepository mailRepository, IMapper mapper)
+        {
+            _mailRepository = mailRepository;
+            _mapper = mapper;
+        }
         public IActionResult Index()
         {
             return View();
@@ -25,53 +35,39 @@ namespace LoginApplication.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> _PRegister(User data)
+        public async Task<IActionResult> _PRegister(UserRegisterDTO model)
         {
-           
-                var dataAdmin = Get<Admin>("Login/LoginAdmin/" + data.Email + "/" + data.Password);
-                var dataUser = Get<User>("Login/LoginUser/" + data.Email + "/" + data.Password);
 
+            bool checkValue = _mailRepository.CheckEmail(model.Email);
 
-                if (dataAdmin != null)
+            if (!checkValue)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
+
+            else
+            {
+
+                User data = _mapper.Map<User>(model);
+                int UserId = Post<int>("Login/Register/", data);
+
+                var claims = new List<Claim>
                 {
-
-                    HttpContext.Session.SetString("Admin", dataAdmin.AdminId.ToString());
-                    return RedirectToAction("Error", "Home");
-                }
-
-                else if (dataUser != null)
-                {
-                    return RedirectToAction("Index", "Home");
-
-                }
-
-                else if (dataUser == null)
-                {
-
-                    data = Post<User>("Login/Register/", data);
-
-                    var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, data.Email),
-                    new Claim(ClaimTypes.Role,"User")
+                   new Claim(ClaimTypes.Role,"User")
 
                 };
 
-                    var useridentity = new ClaimsIdentity(claims, "Login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                    await HttpContext.SignInAsync(principal);
+                var useridentity = new ClaimsIdentity(claims, "Login");
+                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                await HttpContext.SignInAsync(principal);
 
-                    HttpContext.Session.SetString("User", data.UserId.ToString());
-                    return RedirectToAction("Index", "User");
-                }
-            
-            
-
-            return RedirectToAction("Index", "Home");
-
+                HttpContext.Session.SetString("User", UserId.ToString());
+                return RedirectToAction("Index", "User");
+            }
 
         }
 
@@ -86,17 +82,19 @@ namespace LoginApplication.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginUser(Data.Models.Login model)
+        public async Task<IActionResult> LoginUser(PersonLoginDTO model)
         {
-            
+
 
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Home");
             }
 
+
             var dataAdmin = Get<Admin>("Login/LoginAdmin/" + model.Email + "/" + model.Password);
             var dataUser = Get<User>("Login/LoginUser/" + model.Email + "/" + model.Password);
+
 
             if (dataAdmin != null)
             {
@@ -114,7 +112,7 @@ namespace LoginApplication.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, model.Email),
+                    new Claim(ClaimTypes.Email, dataUser.Email),
                     new Claim(ClaimTypes.Role,"User")
                 };
 
@@ -139,16 +137,16 @@ namespace LoginApplication.Controllers
         [HttpGet]
         public IActionResult LoginAdmin()
         {
-            
+
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAdmin(Data.Models.Login model)
+        public async Task<IActionResult> LoginAdmin(PersonLoginDTO model)
         {
-           
+
 
             if (!ModelState.IsValid)
             {

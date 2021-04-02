@@ -1,10 +1,12 @@
-﻿using Data.Models;
+﻿using AutoMapper;
 using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
+using LoginApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -17,12 +19,14 @@ namespace LOGIN.APPLICATION.Controllers
         private readonly IPersonRepository<User> _userRepository;
         private readonly IUserRequestRepository _userRequestRepository;
         private readonly IFileRepository _fileRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IFileRepository fileRepository)
+        public UserController(IPersonRepository<User> userRepository, IUserRequestRepository userRequestRepository, IFileRepository fileRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _userRequestRepository = userRequestRepository;
             _fileRepository = fileRepository;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -101,15 +105,17 @@ namespace LOGIN.APPLICATION.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            var data = _userRequestRepository.GetListUserRequestWithById(UserId);
-            foreach (var item in data)
+            var userRequestList = _userRequestRepository.GetListUserRequestWithById(UserId);
+            List<UserMyRequestDTO> RequestList=_mapper.Map<List<UserMyRequestDTO>>(userRequestList);
+
+            foreach (var item in RequestList)
             {
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), item.DocumentPath);
                 item.UserDocument = Path.GetFileName(path);
             }
 
-            return View(data);
+            return View(RequestList);
 
         }
 
