@@ -3,6 +3,7 @@ using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
 using LoginApplication.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace LOGIN.APPLICATION.Controllers
 {
+    [Authorize(Roles = "User")]
     public class UserController : Controller
     {
         private readonly IPersonRepository<User> _userRepository;
@@ -30,11 +32,6 @@ namespace LOGIN.APPLICATION.Controllers
         }
         public IActionResult Index()
         {
-            string role = UserAuth();
-            if (role == "Admin")
-            {
-                return RedirectToAction("Index", "Admin");
-            }
 
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
@@ -47,12 +44,6 @@ namespace LOGIN.APPLICATION.Controllers
         {
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
-
-            string role = UserAuth();
-            if (role == "Admin")
-            {
-                return RedirectToAction("Index", "Admin");
-            }
 
             return View();
         }
@@ -99,11 +90,6 @@ namespace LOGIN.APPLICATION.Controllers
         {
             int UserId = int.Parse(HttpContext.Session.GetString("User"));
             ViewBag.UserInfo = _userRepository.GetPersonInfoNavBarWitById(UserId);
-            string role = UserAuth();
-            if (role == "Admin")
-            {
-                return RedirectToAction("Index", "Admin");
-            }
 
             var userRequestList = _userRequestRepository.GetListUserRequestWithById(UserId);
             List<UserMyRequestDTO> RequestList=_mapper.Map<List<UserMyRequestDTO>>(userRequestList);
@@ -117,15 +103,6 @@ namespace LOGIN.APPLICATION.Controllers
 
             return View(RequestList);
 
-        }
-
-        [NonAction]
-        public string UserAuth()
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var role = identity.FindFirst(ClaimTypes.Role).Value;
-
-            return role;
         }
 
 

@@ -1,8 +1,4 @@
 ﻿@model LOGIN.DATA.Models.UserClaim
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
 @{
     ViewData["Title"] = "NewRequest";
     Layout = "~/Views/Shared/_LayoutUsers.cshtml";
@@ -12,7 +8,7 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-        @*<div asp-validation-summary="All" class="text-danger"></div>*@
+        <div asp-validation-summary="All" class="text-danger"></div>
         <form asp-action="NewRequest" enctype="multipart/form-data" asp-controller="User" method="post">
             <div class="form-group">
 

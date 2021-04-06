@@ -1,5 +1,6 @@
 ﻿using LOGIN.DATA.Models;
 using LOGIN.SERVICES.IRepository;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace LOGIN.SERVICES
 {
     public class MailRepository: IMailRepository
     {
+        private readonly IConfiguration _configuration;
+        public MailRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public void SendMail(MailModel model, string email, string password)
         {
 
@@ -23,9 +29,9 @@ namespace LOGIN.SERVICES
 
             SmtpClient smtp = new SmtpClient();
             smtp.Credentials = new NetworkCredential(email, password);
-            smtp.Port = 587; // Port Numaber
-            smtp.Host = "smtp.gmail.com";
-            smtp.EnableSsl = true;
+            smtp.Port = int.Parse(_configuration["EmailSettings:Port"]);
+            smtp.Host = _configuration["EmailSettings:Host"].ToString();
+            smtp.EnableSsl = bool.Parse(_configuration["EmailSettings:EnableSsl"]);
 
             smtp.Send(mymail);
 

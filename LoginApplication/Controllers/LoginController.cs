@@ -185,6 +185,7 @@ namespace LoginApplication.Controllers
                 HttpContext.Session.SetString("Admin", dataAdmin.AdminId.ToString());
                 ViewBag.FirstName = dataAdmin.FirstName.ToUpper();
                 ViewBag.LastName = dataAdmin.LastName.ToUpper();
+
                 return RedirectToAction("Index", "Admin");
             }
 

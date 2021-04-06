@@ -43,17 +43,21 @@ namespace LoginApplication
 
             services.AddSession(x => x.IdleTimeout = TimeSpan.FromDays(1));
             services.AddMvc();
-            
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
             {
                 x.LoginPath = "/Home/Index";
+                x.AccessDeniedPath = "/Home/Error";
+
             });
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
+                .RequireAuthenticatedUser().RequireRole("Admin","User")
                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+
+                
             }         
             );
         }
@@ -61,14 +65,17 @@ namespace LoginApplication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostingEnvironment _env)
         {
-            
+           
+
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+               
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -90,7 +97,9 @@ namespace LoginApplication
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+         
+
+
             RotativaConfiguration.Setup(_env);
             
         }

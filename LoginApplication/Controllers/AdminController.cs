@@ -3,6 +3,7 @@ using LOGIN.DATA.Models;
 using LOGIN.SERVICES;
 using LOGIN.SERVICES.IRepository;
 using LoginApplication.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Security.Claims;
 
 namespace LOGIN.APPLICATION.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private readonly IPersonRepository<Admin> _adminRepository;
@@ -30,12 +32,6 @@ namespace LOGIN.APPLICATION.Controllers
         
         public IActionResult Index()
         {
-            string role = AdminAuth();
-            if (role == "User")
-            {
-                return RedirectToAction("Index", "User");
-            }
-
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
             ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
 
@@ -45,12 +41,7 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult Inbox()
         {
-            string role = AdminAuth();
-            if (role == "User")
-            {
-                return RedirectToAction("Index", "User");
-            }
-
+           
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));
             ViewBag.AdminInfo = _adminRepository.GetPersonInfoNavBarWitById(admin_id);
             var data = _userRequestRepository.GetUserRequsetListFalse();
@@ -62,11 +53,6 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult InboxDetail(int id)
         {
-            string role = AdminAuth();
-            if (role == "User")
-            {
-                return RedirectToAction("Index", "User");
-            }
 
             var data = _userRequestRepository.GetUserRequestWithById(id);
 
@@ -131,12 +117,6 @@ namespace LOGIN.APPLICATION.Controllers
 
         public IActionResult SentDetail()
         {
-            string role = AdminAuth();
-            if (role == "User")
-            {
-                return RedirectToAction("Index", "User");
-            }
-
             var data = _userRequestRepository.GetUserRequsetListTrue();
 
             int admin_id = int.Parse(HttpContext.Session.GetString("Admin"));

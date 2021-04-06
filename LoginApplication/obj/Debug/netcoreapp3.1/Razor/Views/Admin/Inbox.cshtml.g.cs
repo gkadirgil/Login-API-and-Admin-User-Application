@@ -27,7 +27,7 @@ using LoginApplication.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"927499da68c4de7bfd46ee097ef24cadccfe23f4", @"/Views/Admin/Inbox.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9b211b55c45b8ab1b968fd5c125349de3a08681d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"eb4a32ff8657134ff9fe6ab9173f38fd625d8162", @"/Views/_ViewImports.cshtml")]
     public class Views_Admin_Inbox : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<LoginApplication.Models.ViewModels.UserRequestDTO>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "Admin", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
